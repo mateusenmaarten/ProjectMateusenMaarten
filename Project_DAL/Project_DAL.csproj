@@ -59,7 +59,6 @@
     <Compile Include="Category.cs">
       <DependentUpon>GameClubModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Class1.cs" />
     <Compile Include="Designer.cs">
       <DependentUpon>GameClubModel.tt</DependentUpon>
     </Compile>
