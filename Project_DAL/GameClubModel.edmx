@@ -1,0 +1,647 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="GameClubModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Boardgame">
+          <Key>
+            <PropertyRef Name="Boardgame_id" />
+          </Key>
+          <Property Name="Boardgame_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Publisher_id" Type="int" />
+          <Property Name="Titel" Type="varchar" MaxLength="120" />
+          <Property Name="MinNumberOfPlayers" Type="int" />
+          <Property Name="MaxNumberOfPlayers" Type="int" />
+          <Property Name="MinPlayingTime" Type="int" />
+          <Property Name="MaxPlayingTime" Type="int" />
+          <Property Name="MinAgeToPlay" Type="int" />
+          <Property Name="MaxAgeToPlay" Type="int" />
+          <Property Name="ContainsSmallParts" Type="bit" />
+        </EntityType>
+        <EntityType Name="Boardgame_Category">
+          <Key>
+            <PropertyRef Name="BoardgameCategory_id" />
+          </Key>
+          <Property Name="BoardgameCategory_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Category_id" Type="int" />
+          <Property Name="Boardgame_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Category_id" />
+          </Key>
+          <Property Name="Category_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Category_name" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Designer">
+          <Key>
+            <PropertyRef Name="Designer_id" />
+          </Key>
+          <Property Name="Designer_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Boardgame_id" Type="int" Nullable="false" />
+          <Property Name="Person_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Owner">
+          <Key>
+            <PropertyRef Name="Owner_id" />
+          </Key>
+          <Property Name="Owner_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Person_id" Type="int" Nullable="false" />
+          <Property Name="Boardgame_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="Person_id" />
+          </Key>
+          <Property Name="Person_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Firstname" Type="varchar" MaxLength="20" />
+          <Property Name="Lastname" Type="varchar" MaxLength="20" />
+          <Property Name="Email" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Player">
+          <Key>
+            <PropertyRef Name="Player_id" />
+          </Key>
+          <Property Name="Player_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Person_id" Type="int" Nullable="false" />
+          <Property Name="PlaySession_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PlaySession">
+          <Key>
+            <PropertyRef Name="PlaySession_id" />
+          </Key>
+          <Property Name="PlaySession_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Boardgame_id" Type="int" Nullable="false" />
+          <Property Name="SessionDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Publisher">
+          <Key>
+            <PropertyRef Name="Publisher_id" />
+          </Key>
+          <Property Name="Publisher_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Publisher_name" Type="varchar" MaxLength="120" />
+        </EntityType>
+        <Association Name="FK_Boardgame_Category_Boardgame">
+          <End Role="Boardgame" Type="Self.Boardgame" Multiplicity="0..1" />
+          <End Role="Boardgame_Category" Type="Self.Boardgame_Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Boardgame">
+              <PropertyRef Name="Boardgame_id" />
+            </Principal>
+            <Dependent Role="Boardgame_Category">
+              <PropertyRef Name="Boardgame_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Boardgame_Category_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Boardgame_Category" Type="Self.Boardgame_Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Category_id" />
+            </Principal>
+            <Dependent Role="Boardgame_Category">
+              <PropertyRef Name="Category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Boardgame_Publisher">
+          <End Role="Publisher" Type="Self.Publisher" Multiplicity="0..1" />
+          <End Role="Boardgame" Type="Self.Boardgame" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Publisher">
+              <PropertyRef Name="Publisher_id" />
+            </Principal>
+            <Dependent Role="Boardgame">
+              <PropertyRef Name="Publisher_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Designer_Boardgame">
+          <End Role="Boardgame" Type="Self.Boardgame" Multiplicity="1" />
+          <End Role="Designer" Type="Self.Designer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Boardgame">
+              <PropertyRef Name="Boardgame_id" />
+            </Principal>
+            <Dependent Role="Designer">
+              <PropertyRef Name="Boardgame_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Designer_Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="Designer" Type="Self.Designer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Person_id" />
+            </Principal>
+            <Dependent Role="Designer">
+              <PropertyRef Name="Person_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Owner_Boardgame">
+          <End Role="Boardgame" Type="Self.Boardgame" Multiplicity="1" />
+          <End Role="Owner" Type="Self.Owner" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Boardgame">
+              <PropertyRef Name="Boardgame_id" />
+            </Principal>
+            <Dependent Role="Owner">
+              <PropertyRef Name="Boardgame_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Owner_Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="Owner" Type="Self.Owner" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Person_id" />
+            </Principal>
+            <Dependent Role="Owner">
+              <PropertyRef Name="Person_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Player_Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="Player" Type="Self.Player" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Person_id" />
+            </Principal>
+            <Dependent Role="Player">
+              <PropertyRef Name="Person_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Player_PlaySession">
+          <End Role="PlaySession" Type="Self.PlaySession" Multiplicity="1" />
+          <End Role="Player" Type="Self.Player" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PlaySession">
+              <PropertyRef Name="PlaySession_id" />
+            </Principal>
+            <Dependent Role="Player">
+              <PropertyRef Name="PlaySession_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlaySession_Boardgame">
+          <End Role="Boardgame" Type="Self.Boardgame" Multiplicity="1" />
+          <End Role="PlaySession" Type="Self.PlaySession" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Boardgame">
+              <PropertyRef Name="Boardgame_id" />
+            </Principal>
+            <Dependent Role="PlaySession">
+              <PropertyRef Name="Boardgame_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GameClubModelStoreContainer">
+          <EntitySet Name="Boardgame" EntityType="Self.Boardgame" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Boardgame_Category" EntityType="Self.Boardgame_Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Designer" EntityType="Self.Designer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Owner" EntityType="Self.Owner" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Player" EntityType="Self.Player" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PlaySession" EntityType="Self.PlaySession" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Publisher" EntityType="Self.Publisher" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Boardgame_Category_Boardgame" Association="Self.FK_Boardgame_Category_Boardgame">
+            <End Role="Boardgame" EntitySet="Boardgame" />
+            <End Role="Boardgame_Category" EntitySet="Boardgame_Category" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Boardgame_Category_Category" Association="Self.FK_Boardgame_Category_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Boardgame_Category" EntitySet="Boardgame_Category" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Boardgame_Publisher" Association="Self.FK_Boardgame_Publisher">
+            <End Role="Publisher" EntitySet="Publisher" />
+            <End Role="Boardgame" EntitySet="Boardgame" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Designer_Boardgame" Association="Self.FK_Designer_Boardgame">
+            <End Role="Boardgame" EntitySet="Boardgame" />
+            <End Role="Designer" EntitySet="Designer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Designer_Person" Association="Self.FK_Designer_Person">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Designer" EntitySet="Designer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Owner_Boardgame" Association="Self.FK_Owner_Boardgame">
+            <End Role="Boardgame" EntitySet="Boardgame" />
+            <End Role="Owner" EntitySet="Owner" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Owner_Person" Association="Self.FK_Owner_Person">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Owner" EntitySet="Owner" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Player_Person" Association="Self.FK_Player_Person">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Player" EntitySet="Player" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Player_PlaySession" Association="Self.FK_Player_PlaySession">
+            <End Role="PlaySession" EntitySet="PlaySession" />
+            <End Role="Player" EntitySet="Player" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlaySession_Boardgame" Association="Self.FK_PlaySession_Boardgame">
+            <End Role="Boardgame" EntitySet="Boardgame" />
+            <End Role="PlaySession" EntitySet="PlaySession" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GameClubModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Boardgame">
+          <Key>
+            <PropertyRef Name="Boardgame_id" />
+          </Key>
+          <Property Name="Boardgame_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Publisher_id" Type="Int32" />
+          <Property Name="Titel" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="MinNumberOfPlayers" Type="Int32" />
+          <Property Name="MaxNumberOfPlayers" Type="Int32" />
+          <Property Name="MinPlayingTime" Type="Int32" />
+          <Property Name="MaxPlayingTime" Type="Int32" />
+          <Property Name="MinAgeToPlay" Type="Int32" />
+          <Property Name="MaxAgeToPlay" Type="Int32" />
+          <Property Name="ContainsSmallParts" Type="Boolean" />
+          <NavigationProperty Name="Boardgame_Category" Relationship="Self.FK_Boardgame_Category_Boardgame" FromRole="Boardgame" ToRole="Boardgame_Category" />
+          <NavigationProperty Name="Publisher" Relationship="Self.FK_Boardgame_Publisher" FromRole="Boardgame" ToRole="Publisher" />
+          <NavigationProperty Name="Designers" Relationship="Self.FK_Designer_Boardgame" FromRole="Boardgame" ToRole="Designer" />
+          <NavigationProperty Name="Owners" Relationship="Self.FK_Owner_Boardgame" FromRole="Boardgame" ToRole="Owner" />
+          <NavigationProperty Name="PlaySessions" Relationship="Self.FK_PlaySession_Boardgame" FromRole="Boardgame" ToRole="PlaySession" />
+        </EntityType>
+        <EntityType Name="Boardgame_Category">
+          <Key>
+            <PropertyRef Name="BoardgameCategory_id" />
+          </Key>
+          <Property Name="BoardgameCategory_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Category_id" Type="Int32" />
+          <Property Name="Boardgame_id" Type="Int32" />
+          <NavigationProperty Name="Boardgame" Relationship="Self.FK_Boardgame_Category_Boardgame" FromRole="Boardgame_Category" ToRole="Boardgame" />
+          <NavigationProperty Name="Category" Relationship="Self.FK_Boardgame_Category_Category" FromRole="Boardgame_Category" ToRole="Category" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Category_id" />
+          </Key>
+          <Property Name="Category_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Category_name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Boardgame_Category" Relationship="Self.FK_Boardgame_Category_Category" FromRole="Category" ToRole="Boardgame_Category" />
+        </EntityType>
+        <EntityType Name="Designer">
+          <Key>
+            <PropertyRef Name="Designer_id" />
+          </Key>
+          <Property Name="Designer_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Boardgame_id" Type="Int32" Nullable="false" />
+          <Property Name="Person_id" Type="Int32" />
+          <NavigationProperty Name="Boardgame" Relationship="Self.FK_Designer_Boardgame" FromRole="Designer" ToRole="Boardgame" />
+          <NavigationProperty Name="Person" Relationship="Self.FK_Designer_Person" FromRole="Designer" ToRole="Person" />
+        </EntityType>
+        <EntityType Name="Owner">
+          <Key>
+            <PropertyRef Name="Owner_id" />
+          </Key>
+          <Property Name="Owner_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Person_id" Type="Int32" Nullable="false" />
+          <Property Name="Boardgame_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Boardgame" Relationship="Self.FK_Owner_Boardgame" FromRole="Owner" ToRole="Boardgame" />
+          <NavigationProperty Name="Person" Relationship="Self.FK_Owner_Person" FromRole="Owner" ToRole="Person" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="Person_id" />
+          </Key>
+          <Property Name="Person_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Firstname" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Lastname" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Designers" Relationship="Self.FK_Designer_Person" FromRole="Person" ToRole="Designer" />
+          <NavigationProperty Name="Owners" Relationship="Self.FK_Owner_Person" FromRole="Person" ToRole="Owner" />
+          <NavigationProperty Name="Players" Relationship="Self.FK_Player_Person" FromRole="Person" ToRole="Player" />
+        </EntityType>
+        <EntityType Name="Player">
+          <Key>
+            <PropertyRef Name="Player_id" />
+          </Key>
+          <Property Name="Player_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Person_id" Type="Int32" Nullable="false" />
+          <Property Name="PlaySession_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Person" Relationship="Self.FK_Player_Person" FromRole="Player" ToRole="Person" />
+          <NavigationProperty Name="PlaySession" Relationship="Self.FK_Player_PlaySession" FromRole="Player" ToRole="PlaySession" />
+        </EntityType>
+        <EntityType Name="PlaySession">
+          <Key>
+            <PropertyRef Name="PlaySession_id" />
+          </Key>
+          <Property Name="PlaySession_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Boardgame_id" Type="Int32" Nullable="false" />
+          <Property Name="SessionDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Boardgame" Relationship="Self.FK_PlaySession_Boardgame" FromRole="PlaySession" ToRole="Boardgame" />
+          <NavigationProperty Name="Players" Relationship="Self.FK_Player_PlaySession" FromRole="PlaySession" ToRole="Player" />
+        </EntityType>
+        <EntityType Name="Publisher">
+          <Key>
+            <PropertyRef Name="Publisher_id" />
+          </Key>
+          <Property Name="Publisher_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Publisher_name" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Boardgames" Relationship="Self.FK_Boardgame_Publisher" FromRole="Publisher" ToRole="Boardgame" />
+        </EntityType>
+        <Association Name="FK_Boardgame_Category_Boardgame">
+          <End Role="Boardgame" Type="Self.Boardgame" Multiplicity="0..1" />
+          <End Role="Boardgame_Category" Type="Self.Boardgame_Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Boardgame">
+              <PropertyRef Name="Boardgame_id" />
+            </Principal>
+            <Dependent Role="Boardgame_Category">
+              <PropertyRef Name="Boardgame_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Boardgame_Publisher">
+          <End Role="Publisher" Type="Self.Publisher" Multiplicity="0..1" />
+          <End Role="Boardgame" Type="Self.Boardgame" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Publisher">
+              <PropertyRef Name="Publisher_id" />
+            </Principal>
+            <Dependent Role="Boardgame">
+              <PropertyRef Name="Publisher_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Designer_Boardgame">
+          <End Role="Boardgame" Type="Self.Boardgame" Multiplicity="1" />
+          <End Role="Designer" Type="Self.Designer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Boardgame">
+              <PropertyRef Name="Boardgame_id" />
+            </Principal>
+            <Dependent Role="Designer">
+              <PropertyRef Name="Boardgame_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Owner_Boardgame">
+          <End Role="Boardgame" Type="Self.Boardgame" Multiplicity="1" />
+          <End Role="Owner" Type="Self.Owner" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Boardgame">
+              <PropertyRef Name="Boardgame_id" />
+            </Principal>
+            <Dependent Role="Owner">
+              <PropertyRef Name="Boardgame_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlaySession_Boardgame">
+          <End Role="Boardgame" Type="Self.Boardgame" Multiplicity="1" />
+          <End Role="PlaySession" Type="Self.PlaySession" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Boardgame">
+              <PropertyRef Name="Boardgame_id" />
+            </Principal>
+            <Dependent Role="PlaySession">
+              <PropertyRef Name="Boardgame_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Boardgame_Category_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Boardgame_Category" Type="Self.Boardgame_Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Category_id" />
+            </Principal>
+            <Dependent Role="Boardgame_Category">
+              <PropertyRef Name="Category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Designer_Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="Designer" Type="Self.Designer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Person_id" />
+            </Principal>
+            <Dependent Role="Designer">
+              <PropertyRef Name="Person_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Owner_Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="Owner" Type="Self.Owner" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Person_id" />
+            </Principal>
+            <Dependent Role="Owner">
+              <PropertyRef Name="Person_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Player_Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="Player" Type="Self.Player" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Person_id" />
+            </Principal>
+            <Dependent Role="Player">
+              <PropertyRef Name="Person_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Player_PlaySession">
+          <End Role="PlaySession" Type="Self.PlaySession" Multiplicity="1" />
+          <End Role="Player" Type="Self.Player" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PlaySession">
+              <PropertyRef Name="PlaySession_id" />
+            </Principal>
+            <Dependent Role="Player">
+              <PropertyRef Name="PlaySession_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GameClubEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Boardgames" EntityType="Self.Boardgame" />
+          <EntitySet Name="Boardgame_Category" EntityType="Self.Boardgame_Category" />
+          <EntitySet Name="Categories" EntityType="Self.Category" />
+          <EntitySet Name="Designers" EntityType="Self.Designer" />
+          <EntitySet Name="Owners" EntityType="Self.Owner" />
+          <EntitySet Name="People" EntityType="Self.Person" />
+          <EntitySet Name="Players" EntityType="Self.Player" />
+          <EntitySet Name="PlaySessions" EntityType="Self.PlaySession" />
+          <EntitySet Name="Publishers" EntityType="Self.Publisher" />
+          <AssociationSet Name="FK_Boardgame_Category_Boardgame" Association="Self.FK_Boardgame_Category_Boardgame">
+            <End Role="Boardgame" EntitySet="Boardgames" />
+            <End Role="Boardgame_Category" EntitySet="Boardgame_Category" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Boardgame_Publisher" Association="Self.FK_Boardgame_Publisher">
+            <End Role="Publisher" EntitySet="Publishers" />
+            <End Role="Boardgame" EntitySet="Boardgames" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Designer_Boardgame" Association="Self.FK_Designer_Boardgame">
+            <End Role="Boardgame" EntitySet="Boardgames" />
+            <End Role="Designer" EntitySet="Designers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Owner_Boardgame" Association="Self.FK_Owner_Boardgame">
+            <End Role="Boardgame" EntitySet="Boardgames" />
+            <End Role="Owner" EntitySet="Owners" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlaySession_Boardgame" Association="Self.FK_PlaySession_Boardgame">
+            <End Role="Boardgame" EntitySet="Boardgames" />
+            <End Role="PlaySession" EntitySet="PlaySessions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Boardgame_Category_Category" Association="Self.FK_Boardgame_Category_Category">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Boardgame_Category" EntitySet="Boardgame_Category" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Designer_Person" Association="Self.FK_Designer_Person">
+            <End Role="Person" EntitySet="People" />
+            <End Role="Designer" EntitySet="Designers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Owner_Person" Association="Self.FK_Owner_Person">
+            <End Role="Person" EntitySet="People" />
+            <End Role="Owner" EntitySet="Owners" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Player_Person" Association="Self.FK_Player_Person">
+            <End Role="Person" EntitySet="People" />
+            <End Role="Player" EntitySet="Players" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Player_PlaySession" Association="Self.FK_Player_PlaySession">
+            <End Role="PlaySession" EntitySet="PlaySessions" />
+            <End Role="Player" EntitySet="Players" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GameClubModelStoreContainer" CdmEntityContainer="GameClubEntities">
+          <EntitySetMapping Name="Boardgames">
+            <EntityTypeMapping TypeName="GameClubModel.Boardgame">
+              <MappingFragment StoreEntitySet="Boardgame">
+                <ScalarProperty Name="Boardgame_id" ColumnName="Boardgame_id" />
+                <ScalarProperty Name="Publisher_id" ColumnName="Publisher_id" />
+                <ScalarProperty Name="Titel" ColumnName="Titel" />
+                <ScalarProperty Name="MinNumberOfPlayers" ColumnName="MinNumberOfPlayers" />
+                <ScalarProperty Name="MaxNumberOfPlayers" ColumnName="MaxNumberOfPlayers" />
+                <ScalarProperty Name="MinPlayingTime" ColumnName="MinPlayingTime" />
+                <ScalarProperty Name="MaxPlayingTime" ColumnName="MaxPlayingTime" />
+                <ScalarProperty Name="MinAgeToPlay" ColumnName="MinAgeToPlay" />
+                <ScalarProperty Name="MaxAgeToPlay" ColumnName="MaxAgeToPlay" />
+                <ScalarProperty Name="ContainsSmallParts" ColumnName="ContainsSmallParts" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Boardgame_Category">
+            <EntityTypeMapping TypeName="GameClubModel.Boardgame_Category">
+              <MappingFragment StoreEntitySet="Boardgame_Category">
+                <ScalarProperty Name="BoardgameCategory_id" ColumnName="BoardgameCategory_id" />
+                <ScalarProperty Name="Category_id" ColumnName="Category_id" />
+                <ScalarProperty Name="Boardgame_id" ColumnName="Boardgame_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="GameClubModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="Category_id" ColumnName="Category_id" />
+                <ScalarProperty Name="Category_name" ColumnName="Category_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Designers">
+            <EntityTypeMapping TypeName="GameClubModel.Designer">
+              <MappingFragment StoreEntitySet="Designer">
+                <ScalarProperty Name="Designer_id" ColumnName="Designer_id" />
+                <ScalarProperty Name="Boardgame_id" ColumnName="Boardgame_id" />
+                <ScalarProperty Name="Person_id" ColumnName="Person_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Owners">
+            <EntityTypeMapping TypeName="GameClubModel.Owner">
+              <MappingFragment StoreEntitySet="Owner">
+                <ScalarProperty Name="Owner_id" ColumnName="Owner_id" />
+                <ScalarProperty Name="Person_id" ColumnName="Person_id" />
+                <ScalarProperty Name="Boardgame_id" ColumnName="Boardgame_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="People">
+            <EntityTypeMapping TypeName="GameClubModel.Person">
+              <MappingFragment StoreEntitySet="Person">
+                <ScalarProperty Name="Person_id" ColumnName="Person_id" />
+                <ScalarProperty Name="Firstname" ColumnName="Firstname" />
+                <ScalarProperty Name="Lastname" ColumnName="Lastname" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Players">
+            <EntityTypeMapping TypeName="GameClubModel.Player">
+              <MappingFragment StoreEntitySet="Player">
+                <ScalarProperty Name="Player_id" ColumnName="Player_id" />
+                <ScalarProperty Name="Person_id" ColumnName="Person_id" />
+                <ScalarProperty Name="PlaySession_id" ColumnName="PlaySession_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PlaySessions">
+            <EntityTypeMapping TypeName="GameClubModel.PlaySession">
+              <MappingFragment StoreEntitySet="PlaySession">
+                <ScalarProperty Name="PlaySession_id" ColumnName="PlaySession_id" />
+                <ScalarProperty Name="Boardgame_id" ColumnName="Boardgame_id" />
+                <ScalarProperty Name="SessionDate" ColumnName="SessionDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Publishers">
+            <EntityTypeMapping TypeName="GameClubModel.Publisher">
+              <MappingFragment StoreEntitySet="Publisher">
+                <ScalarProperty Name="Publisher_id" ColumnName="Publisher_id" />
+                <ScalarProperty Name="Publisher_name" ColumnName="Publisher_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

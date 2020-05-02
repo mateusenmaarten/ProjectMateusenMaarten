@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3ac64f8f601745aca627b146b1c21b06" Name="Diagram1">
+        <EntityTypeShape EntityType="GameClubModel.Boardgame" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GameClubModel.Boardgame_Category" Width="1.5" PointX="0.625" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="GameClubModel.Category" Width="1.5" PointX="0.625" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="GameClubModel.Designer" Width="1.5" PointX="9.625" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="GameClubModel.Owner" Width="1.5" PointX="3.375" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GameClubModel.Person" Width="1.5" PointX="5.875" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="GameClubModel.Player" Width="1.5" PointX="7.625" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="GameClubModel.PlaySession" Width="1.5" PointX="5.375" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="GameClubModel.Publisher" Width="1.5" PointX="2.875" PointY="9.25" IsExpanded="true" />
+        <AssociationConnector Association="GameClubModel.FK_Boardgame_Category_Boardgame" ManuallyRouted="false" />
+        <AssociationConnector Association="GameClubModel.FK_Boardgame_Publisher" ManuallyRouted="false" />
+        <AssociationConnector Association="GameClubModel.FK_Designer_Boardgame" ManuallyRouted="false" />
+        <AssociationConnector Association="GameClubModel.FK_Owner_Boardgame" ManuallyRouted="false" />
+        <AssociationConnector Association="GameClubModel.FK_PlaySession_Boardgame" ManuallyRouted="false" />
+        <AssociationConnector Association="GameClubModel.FK_Boardgame_Category_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="GameClubModel.FK_Designer_Person" ManuallyRouted="false" />
+        <AssociationConnector Association="GameClubModel.FK_Owner_Person" ManuallyRouted="false" />
+        <AssociationConnector Association="GameClubModel.FK_Player_Person" ManuallyRouted="false" />
+        <AssociationConnector Association="GameClubModel.FK_Player_PlaySession" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
