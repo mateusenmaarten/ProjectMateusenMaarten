@@ -28,11 +28,8 @@
         </Grid.RowDefinitions>
         <ComboBox Grid.Row="0" x:Name="cmbLeden"
             materialDesign:HintAssist.Hint="Ledenlijst" Margin="10" VerticalAlignment="Bottom">
-
         </ComboBox>
-        <GroupBox Grid.Column="1" 
-  Header="Collectie"
-  Margin="5">
+        <GroupBox Grid.Column="1" Header="Collectie" Margin="5">
             <DataGrid x:Name="memberDatagrid"  Margin="5">
 
             </DataGrid>
@@ -43,129 +40,87 @@
             <Button x:Name="btnAanpassen" Content="Spel aanpassen" Margin="5" Width="250"  />
         </StackPanel>
         <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal" Margin="10,0,10,5" Width="auto">
-            <TextBox Width="100" Margin="0 0 5 0"
-  materialDesign:HintAssist.Hint="Titel"
-  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-  />
-            <TextBox Width="100" Margin="0 0 5 0"
-  materialDesign:HintAssist.Hint="Publisher"
-  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-  />
-            <TextBox Width="100" Margin="0 0 5 0"
-  materialDesign:HintAssist.Hint="Designer"
-  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-  />
+            <TextBox Width="100" Margin="0 0 5 0" materialDesign:HintAssist.Hint="Titel" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+            <TextBox Width="100" Margin="0 0 5 0" materialDesign:HintAssist.Hint="Publisher" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+            <TextBox Width="100" Margin="0 0 5 0" materialDesign:HintAssist.Hint="Designer" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
             <materialDesign:PackIcon Kind="UsersGroup" Margin="20 0 5 5" VerticalAlignment="Bottom"/>
-            <TextBox Width="30"
-  materialDesign:HintAssist.Hint="min"
-  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-  />
+            <TextBox Width="30" materialDesign:HintAssist.Hint="min" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
             <Label Content="-" VerticalAlignment="Bottom"/>
-            <TextBox Width="30"
-  materialDesign:HintAssist.Hint="max"
-  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-  />
+            <TextBox Width="30" materialDesign:HintAssist.Hint="max" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
             <materialDesign:PackIcon Kind="ProgressClock" VerticalAlignment="Bottom" Margin="20 0 5 5"/>
-            <TextBox Width="30"
-  materialDesign:HintAssist.Hint="min"
-  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-  />
+            <TextBox Width="30" materialDesign:HintAssist.Hint="min" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
             <Label Content="-" VerticalAlignment="Bottom"/>
-            <TextBox Width="30"
-  materialDesign:HintAssist.Hint="max"
-  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-  />
+            <TextBox Width="30" materialDesign:HintAssist.Hint="max" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
             <materialDesign:PackIcon Kind="AccountChild" VerticalAlignment="Bottom" Margin="20 0 5 5"/>
-            <TextBox Width="40"
-  materialDesign:HintAssist.Hint="leeftijd"
-  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-  />
+            <TextBox Width="40" materialDesign:HintAssist.Hint="leeftijd" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
             <Label Content="+" VerticalAlignment="Bottom" />
             <materialDesign:PackIcon Kind="Baby" VerticalAlignment="Bottom" Margin="20 0 5 5"/>
-            <ToggleButton Margin="5" VerticalAlignment="Bottom"
-              Style="{StaticResource MaterialDesignSwitchAccentToggleButton}"
-              ToolTip="bevat GEEN kleine onderdelen"
-              IsChecked="False"/>
+            <ToggleButton Margin="5" VerticalAlignment="Bottom" Style="{StaticResource MaterialDesignSwitchAccentToggleButton}" ToolTip="bevat GEEN kleine onderdelen" IsChecked="False"/>
 
         </StackPanel>
-        <materialDesign:Flipper VerticalAlignment="Top" Height="250"
-        Style="{StaticResource MaterialDesignCardFlipper}" Grid.RowSpan="3">
+        <materialDesign:Flipper VerticalAlignment="Top" Height="250" Style="{StaticResource MaterialDesignCardFlipper}" Grid.RowSpan="3">
             <materialDesign:Flipper.FrontContent>
-                <Grid
-          Height="256"
-          Width="200">
+                <Grid Height="256" Width="200">
                     <Grid.RowDefinitions>
-                        <RowDefinition
-          Height="160" />
-                        <RowDefinition
-          Height="*" />
+                        <RowDefinition Height="160" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <materialDesign:ColorZone
-            Mode="PrimaryLight"
-            VerticalAlignment="Stretch">
+                    <materialDesign:ColorZone Mode="PrimaryLight" VerticalAlignment="Stretch">
                         <materialDesign:PackIcon
-          Kind="AccountCircle"
-          Height="100"
-          Width="100"
-          VerticalAlignment="Center"
-          HorizontalAlignment="Center" />
+                          Kind="AccountCircle"
+                          Height="100"
+                          Width="100"
+                          VerticalAlignment="Center"
+                          HorizontalAlignment="Center" />
                     </materialDesign:ColorZone>
-                    <StackPanel
-            Grid.Row="1"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center">
-
-                        <Button x:Name="btnNieuwLid" 
-          Style="{StaticResource MaterialDesignFlatButton}"
-          Command="{x:Static materialDesign:Flipper.FlipCommand}"
-          Margin="0 4 0 0">
+                    <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Button x:Name="btnNieuwLid" 
+                        Style="{StaticResource MaterialDesignFlatButton}"
+                        Command="{x:Static materialDesign:Flipper.FlipCommand}"
+                        Margin="0 4 0 0">
                             Nieuw lid toevoegen
-                        </Button>
-                        <Button x:Name="btnGegevensBewerken"  
-          Style="{StaticResource MaterialDesignFlatButton}"
-          Command="{x:Static materialDesign:Flipper.FlipCommand}"
-          Margin="0 4 0 0">
+                    </Button>
+                    <Button x:Name="btnGegevensBewerken"  
+                        Style="{StaticResource MaterialDesignFlatButton}"
+                        Command="{x:Static materialDesign:Flipper.FlipCommand}"
+                        Margin="0 4 0 0">
                             Gegevens Bewerken
-                        </Button>
+                    </Button>
                     </StackPanel>
                 </Grid>
             </materialDesign:Flipper.FrontContent>
             <materialDesign:Flipper.BackContent>
-                <Grid
-      Height="256"
-      Width="200">
+                <Grid Height="256" Width="200">
                     <Grid.RowDefinitions>
-                        <RowDefinition
-          Height="Auto" />
-                        <RowDefinition
-          Height="*" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <materialDesign:ColorZone
-        Mode="Accent"
-        Padding="6">
+                        Mode="Accent"
+                        Padding="6">
                         <StackPanel
-          Orientation="Horizontal">
+                            Orientation="Horizontal">
                             <Button
-            Style="{StaticResource MaterialDesignToolForegroundButton}"
-            Command="{x:Static materialDesign:Flipper.FlipCommand}"
-            HorizontalAlignment="Left">
+                                Style="{StaticResource MaterialDesignToolForegroundButton}"
+                                Command="{x:Static materialDesign:Flipper.FlipCommand}"
+                                HorizontalAlignment="Left">
                                 <materialDesign:PackIcon
-              Kind="ArrowLeft"
-              HorizontalAlignment="Right" />
+                                    Kind="ArrowLeft"
+                                    HorizontalAlignment="Right" />
                             </Button>
                             <TextBlock
-            Margin="8 0 0 0"
-            VerticalAlignment="Center">
-          Gegevens
+                                Margin="8 0 0 0"
+                                VerticalAlignment="Center">
+                                Gegevens
                             </TextBlock>
-                        </StackPanel>
+                    </StackPanel>
                     </materialDesign:ColorZone>
                     <Grid
-        Grid.Row="1"
-        Margin="0 6 0 0"
-        HorizontalAlignment="Center"
-        VerticalAlignment="Top"
-        Width="172">
+                        Grid.Row="1"
+                        Margin="0 6 0 0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top"
+                        Width="172">
                         <Grid.RowDefinitions>
                             <RowDefinition />
                             <RowDefinition />
@@ -173,23 +128,23 @@
                             <RowDefinition />
                         </Grid.RowDefinitions>
                         <TextBox x:Name="txtVoornaam"
-          materialDesign:HintAssist.Hint="Voornaam"
-          materialDesign:HintAssist.IsFloating="True"
-          Margin="0 12 0 0">
+                            materialDesign:HintAssist.Hint="Voornaam"
+                            materialDesign:HintAssist.IsFloating="True"
+                            Margin="0 12 0 0">
 
                         </TextBox>
                         <TextBox x:Name="txtAchternaam"
-          Grid.Row="1"
-          materialDesign:HintAssist.Hint="Achternaam"
-          materialDesign:HintAssist.IsFloating="True"
-          Margin="0 12 0 0">
+                            Grid.Row="1"
+                            materialDesign:HintAssist.Hint="Achternaam"
+                            materialDesign:HintAssist.IsFloating="True"
+                            Margin="0 12 0 0">
 
                         </TextBox>
                         <TextBox x:Name="txtEmail"
-          Grid.Row="2"
-          materialDesign:HintAssist.Hint="Email"
-          materialDesign:HintAssist.IsFloating="True"
-          Margin="0 12 0 0">
+                            Grid.Row="2"
+                            materialDesign:HintAssist.Hint="Email"
+                            materialDesign:HintAssist.IsFloating="True"
+                            Margin="0 12 0 0">
 
                         </TextBox>
                         <Button x:Name="btnBevestigLid" Content="Bevestigen" Margin="0 10 0 0" Grid.Row="3" />

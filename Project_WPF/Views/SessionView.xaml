@@ -1,0 +1,86 @@
+﻿<Window x:Class="Project_WPF.Views.SessionView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Project_WPF.Views"
+        mc:Ignorable="d"
+        
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        
+        Title="SessionView" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition />
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <GroupBox Grid.ColumnSpan="2"
+  Header="Selecteer wie deelneemt aan de sessie"
+  Margin="16">
+            <StackPanel Orientation="Horizontal">
+                <ComboBox Width="150" VerticalAlignment="Top"
+                    materialDesign:HintAssist.Hint="Spelers" Margin="20">
+                </ComboBox>
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                    <Button Width="100" Margin="5"
+  Content="{materialDesign:PackIcon ArrowRightBoldOutline}"
+  ToolTip="Voeg toe aan deelnemers" />
+                    <Button Width="100" Margin="5"
+  Content="{materialDesign:PackIcon ArrowLeftBoldOutline}"
+  ToolTip="Verwijder uit deelnemers" />
+                </StackPanel>
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"
+  Header="Selecteer een spel en de datum van de sessie"
+  Margin="16">
+            <StackPanel Orientation="Horizontal">
+                <ComboBox Width="150"
+                    materialDesign:HintAssist.Hint="Spel" Margin="10">
+                </ComboBox>
+                <DatePicker Margin="10"
+                    Width="140"
+                    materialDesign:HintAssist.Hint="Pick Date"
+                    Style="{StaticResource MaterialDesignOutlinedDatePicker}" />
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Grid.Column="2" Grid.RowSpan="2"
+  Header="Samenvatting"
+  Style="{DynamicResource MaterialDesignGroupBox}"
+  Margin="16"
+  materialDesign:ColorZoneAssist.Mode="Accent">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Vertical">
+                    <Label Content="Deelnemers : "/>
+                    <TextBlock x:Name="txtDeelnemers" Height="auto"/>
+                    <Label Content="Spel : "/>
+                    <TextBlock x:Name="txtTeSpelenSpel"/>
+                    <Label Content="Datum : "/>
+                    <TextBlock x:Name="txtSpeelDatum"/>
+                </StackPanel>
+                <Button Grid.Row="1" Margin="10"
+    Style="{StaticResource MaterialDesignRaisedButton}"
+    Width="200">
+                    Bevestig Sessie
+                </Button>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</Window>

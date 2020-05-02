@@ -9,6 +9,6 @@ namespace Project_WPF.ViewModels
 {
     public class ShellViewModel : Screen
     {
-
+        
     }
 }
