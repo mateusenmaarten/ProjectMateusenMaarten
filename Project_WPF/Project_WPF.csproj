@@ -87,6 +87,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ViewModels\JsonViewModel.cs" />
+    <Compile Include="ViewModels\MemberViewModel.cs" />
+    <Compile Include="ViewModels\SearchViewModel.cs" />
+    <Compile Include="ViewModels\SessionViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="Views\JsonView.xaml.cs">
       <DependentUpon>JsonView.xaml</DependentUpon>
