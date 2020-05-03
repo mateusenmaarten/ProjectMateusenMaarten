@@ -23,9 +23,9 @@
             <RowDefinition Height="100"/>
             <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
-        <Button x:Name="btnJson" Content="JSON" Grid.Row="0" Margin="5" Height="auto" />
-        <Button x:Name="btnLeden" Content="LEDEN" Grid.Row="1" Margin="5" Height="auto" />
-        <Button x:Name="btnSpelsessie" Content="SPELSESSIE" Grid.Row="2" Margin="5" Height="auto" />
-        <Button x:Name="btnZoeken" Content="ZOEKEN" Grid.Row="3" Margin="5" Height="auto" />
+        <Button x:Name="btnOpenJsonView" Content="JSON" Grid.Row="0" Margin="5" Height="auto" />
+        <Button x:Name="btnOpenMemberView" Content="LEDEN" Grid.Row="1" Margin="5" Height="auto" />
+        <Button x:Name="btnOpenSessionView" Content="SPELSESSIE" Grid.Row="2" Margin="5" Height="auto" />
+        <Button x:Name="btnOpenSearchView" Content="ZOEKEN" Grid.Row="3" Margin="5" Height="auto" />
     </Grid>
 </Window>

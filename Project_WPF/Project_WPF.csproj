@@ -136,7 +136,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Project_DAL\Project_DAL.csproj">
+      <Project>{144fa400-b447-454f-88f0-b5cb73072f10}</Project>
+      <Name>Project_DAL</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Page Include="Views\JsonView.xaml">
       <SubType>Designer</SubType>

@@ -26,19 +26,26 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <ComboBox Grid.Row="0" x:Name="cmbLeden"
+        <!--LedenLijst-->
+        <ComboBox x:Name="Persons" DisplayMemberPath="Fullname"
             materialDesign:HintAssist.Hint="Ledenlijst" Margin="10" VerticalAlignment="Bottom">
         </ComboBox>
+        
+        <!--Collectie-->
         <GroupBox Grid.Column="1" Header="Collectie" Margin="5">
             <DataGrid x:Name="memberDatagrid"  Margin="5">
 
             </DataGrid>
         </GroupBox>
+
+        <!--Collectie Buttons-->
         <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center" Width="782" Margin="0,0,10,0" Grid.Column="1">
-            <Button x:Name="btnCollectieAanvullen" Content="Spel toevoegen" Width="250" Margin="5" />
+            <Button x:Name="AddGame" Content="Spel toevoegen" Width="250" Margin="5" />
             <Button x:Name="btnVerwijderen" Content="Spel verwijderen" Margin="5" Width="250"  />
             <Button x:Name="btnAanpassen" Content="Spel aanpassen" Margin="5" Width="250"  />
         </StackPanel>
+
+        <!--Tekstvelden om spel toe te voegen-->
         <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal" Margin="10,0,10,5" Width="auto">
             <TextBox Width="100" Margin="0 0 5 0" materialDesign:HintAssist.Hint="Titel" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
             <TextBox Width="100" Margin="0 0 5 0" materialDesign:HintAssist.Hint="Publisher" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
@@ -57,8 +64,10 @@
             <materialDesign:PackIcon Kind="Baby" VerticalAlignment="Bottom" Margin="20 0 5 5"/>
             <ToggleButton Margin="5" VerticalAlignment="Bottom" Style="{StaticResource MaterialDesignSwitchAccentToggleButton}" ToolTip="bevat GEEN kleine onderdelen" IsChecked="False"/>
 
-        </StackPanel>
-        <materialDesign:Flipper VerticalAlignment="Top" Height="250" Style="{StaticResource MaterialDesignCardFlipper}" Grid.RowSpan="3">
+            <!--Leden Flip kaart-->
+            </StackPanel>
+            <materialDesign:Flipper VerticalAlignment="Top" Height="250" Style="{StaticResource MaterialDesignCardFlipper}" Grid.RowSpan="3">
+            <!--Voorkant flipkaart-->
             <materialDesign:Flipper.FrontContent>
                 <Grid Height="256" Width="200">
                     <Grid.RowDefinitions>
@@ -89,6 +98,7 @@
                     </StackPanel>
                 </Grid>
             </materialDesign:Flipper.FrontContent>
+            <!--Achterkant flipkaart-->
             <materialDesign:Flipper.BackContent>
                 <Grid Height="256" Width="200">
                     <Grid.RowDefinitions>
