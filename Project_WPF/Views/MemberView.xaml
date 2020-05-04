@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:cal="http://www.caliburnproject.org"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -27,7 +28,7 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <!--LedenLijst-->
-        <ComboBox x:Name="Persons" DisplayMemberPath="Fullname"
+        <ComboBox x:Name="Persons" DisplayMemberPath="Fullname" SelectedItem="{Binding SelectedPerson}"
             materialDesign:HintAssist.Hint="Ledenlijst" Margin="10" VerticalAlignment="Bottom">
         </ComboBox>
         
@@ -83,24 +84,28 @@
                           HorizontalAlignment="Center" />
                     </materialDesign:ColorZone>
                     <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Button x:Name="btnNieuwLid" 
+                        
+                        <Button x:Name="AddNewMember" cal:Message.Attach="AddNewMember" 
                         Style="{StaticResource MaterialDesignFlatButton}"
                         Command="{x:Static materialDesign:Flipper.FlipCommand}"
                         Margin="0 4 0 0">
-                            Nieuw lid toevoegen
+                            Nieuw Lid Toevoegen
                     </Button>
-                    <Button x:Name="btnGegevensBewerken"  
+
+                        <Button x:Name="EditExistingMember"  cal:Message.Attach="EditExistingMember" 
                         Style="{StaticResource MaterialDesignFlatButton}"
                         Command="{x:Static materialDesign:Flipper.FlipCommand}"
                         Margin="0 4 0 0">
                             Gegevens Bewerken
                     </Button>
+                        
                     </StackPanel>
                 </Grid>
             </materialDesign:Flipper.FrontContent>
             <!--Achterkant flipkaart-->
-            <materialDesign:Flipper.BackContent>
-                <Grid Height="256" Width="200">
+
+            <materialDesign:Flipper.BackContent >
+                <Grid Height="256" Width="200" cal:Bind.Model="{Binding }" >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
@@ -137,27 +142,29 @@
                             <RowDefinition />
                             <RowDefinition />
                         </Grid.RowDefinitions>
-                        <TextBox x:Name="txtVoornaam"
+                        <TextBox x:Name="TxtFirstname" 
+                                 
                             materialDesign:HintAssist.Hint="Voornaam"
                             materialDesign:HintAssist.IsFloating="True"
                             Margin="0 12 0 0">
 
                         </TextBox>
-                        <TextBox x:Name="txtAchternaam"
+                        <TextBox x:Name="TxtLastname"
                             Grid.Row="1"
+                                 
                             materialDesign:HintAssist.Hint="Achternaam"
                             materialDesign:HintAssist.IsFloating="True"
                             Margin="0 12 0 0">
 
                         </TextBox>
-                        <TextBox x:Name="txtEmail"
+                        <TextBox x:Name="TxtEmail" 
                             Grid.Row="2"
                             materialDesign:HintAssist.Hint="Email"
                             materialDesign:HintAssist.IsFloating="True"
                             Margin="0 12 0 0">
 
                         </TextBox>
-                        <Button x:Name="btnBevestigLid" Content="Bevestigen" Margin="0 10 0 0" Grid.Row="3" />
+                        <Button x:Name="CommitMember" cal:Message.Attach="CommitMember" Content="Bevestigen" Margin="0 10 0 0" Grid.Row="3" />
                     </Grid>
                 </Grid>
             </materialDesign:Flipper.BackContent>

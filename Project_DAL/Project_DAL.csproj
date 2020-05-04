@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseModels\BaseClass.cs" />
     <Compile Include="Boardgame.cs">
       <DependentUpon>GameClubModel.tt</DependentUpon>
     </Compile>
@@ -66,6 +67,7 @@
     <Compile Include="Designer.cs">
       <DependentUpon>GameClubModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="FileOperations.cs" />
     <Compile Include="GameClubModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

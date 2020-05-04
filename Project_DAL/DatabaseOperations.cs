@@ -18,5 +18,22 @@ namespace Project_DAL
                 return query.ToList();
             }
         }
+
+        public static int AddPerson(Person person)
+        {
+            try
+            {
+                using (GameClubEntities gameClubEntities = new GameClubEntities())
+                {
+                    gameClubEntities.People.Add(person);
+                    return gameClubEntities.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                FileOperations.FoutLoggen(ex);
+                return 0;
+            }
+        }
     }
 }

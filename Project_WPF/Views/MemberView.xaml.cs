@@ -22,6 +22,7 @@ namespace Project_WPF.Views
         public MemberView()
         {
             InitializeComponent();
+
         }
     }
 }
