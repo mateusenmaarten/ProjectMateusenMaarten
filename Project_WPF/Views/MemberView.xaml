@@ -16,7 +16,7 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         
-        Title="MemberView" Height="450" Width="1000">
+        Title="MemberView" Height="500" Width="1000">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
@@ -28,10 +28,11 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <!--LedenLijst-->
-        <ComboBox x:Name="Persons" DisplayMemberPath="Fullname" SelectedItem="{Binding SelectedPerson}"
-            materialDesign:HintAssist.Hint="Ledenlijst" Margin="10" VerticalAlignment="Bottom">
+        <ComboBox x:Name="Persons" DisplayMemberPath="Fullname" SelectedItem="{Binding SelectedPerson}" 
+            materialDesign:HintAssist.Hint="Ledenlijst" Margin="10" VerticalAlignment="Bottom"
+                  Grid.Row="1">
         </ComboBox>
-        
+        <Label Grid.Row="2" Grid.Column="0" Margin="5" x:Name="FoutMeldingsLabel" Content="Foutmelding" Foreground="#DDFF0000"/>
         <!--Collectie-->
         <GroupBox Grid.Column="1" Header="Collectie" Margin="5">
             <DataGrid x:Name="memberDatagrid"  Margin="5">
@@ -66,14 +67,14 @@
             <ToggleButton Margin="5" VerticalAlignment="Bottom" Style="{StaticResource MaterialDesignSwitchAccentToggleButton}" ToolTip="bevat GEEN kleine onderdelen" IsChecked="False"/>
 
             <!--Leden Flip kaart-->
-            </StackPanel>
-            <materialDesign:Flipper VerticalAlignment="Top" Height="250" Style="{StaticResource MaterialDesignCardFlipper}" Grid.RowSpan="3">
+        </StackPanel>
+        <materialDesign:Flipper VerticalAlignment="Top" Height="363" Style="{StaticResource MaterialDesignCardFlipper}">
             <!--Voorkant flipkaart-->
             <materialDesign:Flipper.FrontContent>
-                <Grid Height="256" Width="200">
+                <Grid Height="auto" Width="200">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="160" />
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="100" />
+                        <RowDefinition Height="auto" />
                     </Grid.RowDefinitions>
                     <materialDesign:ColorZone Mode="PrimaryLight" VerticalAlignment="Stretch">
                         <materialDesign:PackIcon
@@ -84,20 +85,42 @@
                           HorizontalAlignment="Center" />
                     </materialDesign:ColorZone>
                     <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        
-                        <Button x:Name="AddNewMember" cal:Message.Attach="AddNewMember" 
-                        Style="{StaticResource MaterialDesignFlatButton}"
-                        Command="{x:Static materialDesign:Flipper.FlipCommand}"
-                        Margin="0 4 0 0">
-                            Nieuw Lid Toevoegen
-                    </Button>
 
-                        <Button x:Name="EditExistingMember"  cal:Message.Attach="EditExistingMember" 
-                        Style="{StaticResource MaterialDesignFlatButton}"
-                        Command="{x:Static materialDesign:Flipper.FlipCommand}"
-                        Margin="0 4 0 0">
-                            Gegevens Bewerken
-                    </Button>
+                        <TextBox Text="{Binding Path=TxtFirstname}"
+                                 
+                            materialDesign:HintAssist.Hint="Voornaam"
+                            materialDesign:HintAssist.IsFloating="True"
+                            Margin="0 5 0 0">
+
+                            </TextBox>
+                            <TextBox Text="{Binding Path=TxtLastname}"
+                            Grid.Row="1"
+                                 
+                            materialDesign:HintAssist.Hint="Achternaam"
+                            materialDesign:HintAssist.IsFloating="True"
+                            Margin="0 5 0 0">
+
+                            </TextBox>
+                            <TextBox Text="{Binding Path=TxtEmail}"
+                            
+                            materialDesign:HintAssist.Hint="Email"
+                            materialDesign:HintAssist.IsFloating="True"
+                            Margin="0 5 0 0">
+
+                            </TextBox>
+                            <Button  x:Name="AddNewMember" cal:Message.Attach="AddNewMember" 
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Width="auto"
+                            Margin="5"
+                            ToolTip="Voeg een nieuw lid toe">
+                                Nieuw lid toevoegen
+                            </Button>
+                        
+                        <Button x:Name="EditExistingMember"  cal:Message.Attach="EditExistingMember"
+                                    Command="{x:Static materialDesign:Flipper.FlipCommand}"
+                                    Margin="5" Width="auto"
+                                    Content="{materialDesign:PackIcon AccountEditOutline}"
+                                    ToolTip="Bewerk een bestaand lid" />
                         
                     </StackPanel>
                 </Grid>
@@ -105,7 +128,7 @@
             <!--Achterkant flipkaart-->
 
             <materialDesign:Flipper.BackContent >
-                <Grid Height="256" Width="200" cal:Bind.Model="{Binding }" >
+                <Grid Height="auto" Width="200" cal:Bind.Model="{Binding }" VerticalAlignment="Top" >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
@@ -113,9 +136,9 @@
                     <materialDesign:ColorZone
                         Mode="Accent"
                         Padding="6">
-                        <StackPanel
+                        <StackPanel 
                             Orientation="Horizontal">
-                            <Button
+                            <Button x:Name="BackButton" cal:Message.Attach="BackButton"
                                 Style="{StaticResource MaterialDesignToolForegroundButton}"
                                 Command="{x:Static materialDesign:Flipper.FlipCommand}"
                                 HorizontalAlignment="Left">
@@ -128,7 +151,7 @@
                                 VerticalAlignment="Center">
                                 Gegevens
                             </TextBlock>
-                    </StackPanel>
+                        </StackPanel>
                     </materialDesign:ColorZone>
                     <Grid
                         Grid.Row="1"
@@ -142,14 +165,14 @@
                             <RowDefinition />
                             <RowDefinition />
                         </Grid.RowDefinitions>
-                        <TextBox x:Name="TxtFirstname" 
+                        <TextBox x:Name="SelectedPerson_Firstname" 
                                  
                             materialDesign:HintAssist.Hint="Voornaam"
                             materialDesign:HintAssist.IsFloating="True"
                             Margin="0 12 0 0">
 
                         </TextBox>
-                        <TextBox x:Name="TxtLastname"
+                        <TextBox x:Name="SelectedPerson_Lastname"
                             Grid.Row="1"
                                  
                             materialDesign:HintAssist.Hint="Achternaam"
@@ -157,7 +180,7 @@
                             Margin="0 12 0 0">
 
                         </TextBox>
-                        <TextBox x:Name="TxtEmail" 
+                        <TextBox x:Name="SelectedPerson_Email" 
                             Grid.Row="2"
                             materialDesign:HintAssist.Hint="Email"
                             materialDesign:HintAssist.IsFloating="True"

@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Project_WPF.ViewModels
 {
@@ -18,9 +19,9 @@ namespace Project_WPF.ViewModels
         private string _txtFirstname;
         private string _txtLastname;
         private string _txtEmail;
-
+        private string _foutmeldingsLabel;
         private BindableCollection<Person> _persons;
-
+        
         public BindableCollection<Person> Persons 
         {
             get 
@@ -69,7 +70,15 @@ namespace Project_WPF.ViewModels
                 NotifyOfPropertyChange(() => TxtEmail);
             }
         }
-
+        public string FoutMeldingsLabel 
+        {
+            get { return _foutmeldingsLabel; }
+            set 
+            { 
+                _foutmeldingsLabel = value; 
+                NotifyOfPropertyChange(() => FoutMeldingsLabel); 
+            }
+        }
         public Person SelectedPerson
         { 
             get 
@@ -96,18 +105,7 @@ namespace Project_WPF.ViewModels
 
         public void AddNewMember()
         {
-            //Combobox leegmaken zodat er niemand is geselecteerd
-            SelectedPerson = null;
-        }
-
-        public void EditExistingMember(Person selectedPerson)
-        {
-            //Er moet iemand geselecteerd zijn in de combobox, zo niet foutmelding "selecteer lid"
-            //De waarden van deze persoon worden ingevuld in de textboxen
-        }
-
-        public void CommitMember()
-        {
+            
             Person personToAdd = new Person();
             personToAdd.Firstname = TxtFirstname;
             personToAdd.Lastname = TxtLastname;
@@ -115,13 +113,70 @@ namespace Project_WPF.ViewModels
 
             if (personToAdd.IsGeldig())
             {
-                DatabaseOperations.AddPerson(personToAdd);
+                int personID = 0;
+                DatabaseOperations.AddPerson(personToAdd, ref personID);
+                FoutMeldingsLabel = $"{personToAdd.Fullname} is nu lid met ID : {personToAdd.Person_id}";
+                EmptyTextFields();
+                
+            }
+            else
+            {
+                FoutMeldingsLabel = personToAdd.Error;
             }
 
             ReLoadMemberList();
+        }
+
+        public void EditExistingMember()
+        {
+            if (SelectedPerson == null)
+            {
+                FoutMeldingsLabel = $"Selecteer een lid aub";
+            }
             
         }
 
-        
+        public void CommitMember() 
+        {
+            
+                if (SelectedPerson is Person personToEdit)
+                {
+                    if (personToEdit.IsGeldig())
+                    {
+                        int ok = DatabaseOperations.EditPerson(personToEdit);
+                        if (ok > 0)
+                        {
+                            FoutMeldingsLabel = $"Wijziging gelukt!";
+                        }
+                        else
+                        {
+                            FoutMeldingsLabel = $"Er is iets fout gegaan";
+                        }
+                    }
+                    else
+                    {
+                        FoutMeldingsLabel = personToEdit.Error;
+                    }
+                }
+            
+
+            ReLoadMemberList();
+
+        }
+
+        public void BackButton()
+        {
+            EmptyTextFields();
+            FoutMeldingsLabel = "";
+            SelectedPerson = null;
+        }
+
+        public void EmptyTextFields()
+        {
+            TxtEmail = "";
+            TxtFirstname = "";
+            TxtLastname = "";
+        }
+
     }
 }

@@ -15,22 +15,24 @@ namespace Project_DAL
             get { return $"{Firstname} {Lastname}"; }
         }
 
+        public int PersonID { get; set; }
+
         public override string this[string columnName]
         {
             get
             {
-                if (columnName == Firstname && string.IsNullOrWhiteSpace(Firstname))
+                if (columnName == "Firstname" && string.IsNullOrWhiteSpace(Firstname))
                 {
-                    return $"Voornaam is een verplicht in te vullen veld";
+                    return $"Voornaam invullen aub" + Environment.NewLine;
                 }
-                if (columnName == Lastname && string.IsNullOrWhiteSpace(Lastname))
+                if (columnName == "Lastname" && string.IsNullOrWhiteSpace(Lastname))
                 {
-                    return $"Achternaam is een verplicht in te vullen veld";
+                    return $"Achternaam invullen aub" + Environment.NewLine;
                 }
-                if (columnName == Email && string.IsNullOrWhiteSpace(Email))
-                {
-                    return $"Email is een verplicht in te vullen veld";
-                }
+                //if (columnName == "Email" && string.IsNullOrWhiteSpace(Email))
+                //{
+                //    return $"Email is een verplicht in te vullen veld";
+                //}
                 return "";
             }
 
