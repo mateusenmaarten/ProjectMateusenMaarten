@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Project_DAL
 {
+
     public partial class Person : BaseClass
     {
         public string Fullname
@@ -37,5 +38,7 @@ namespace Project_DAL
             }
 
         }
+
+        
     }
 }

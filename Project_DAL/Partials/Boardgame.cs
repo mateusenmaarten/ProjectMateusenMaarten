@@ -15,6 +15,7 @@ namespace Project_DAL
         {
             get
             {
+                //Controle json
                 if (columnName == "JsonTitel" && string.IsNullOrWhiteSpace(JsonTitel))
                 {
                     return $"Geen titel meegekregen" + Environment.NewLine;
@@ -31,6 +32,8 @@ namespace Project_DAL
                 {
                     return $"De minimum speelduur moet een positief getal zijn" + Environment.NewLine;
                 }
+                //controle toevoegen of aanpassen
+
                 return "";
             }
         }

@@ -14,14 +14,97 @@ namespace Project_WPF.ViewModels
     public class MemberViewModel : Screen
     {
         List<Person> PersonList = new List<Person>();
+        List<Category> CategoryList = new List<Category>();
 
         private Person _selectedPerson = null;
+        private Category _selectedCategory = null;
+
         private string _txtFirstname;
         private string _txtLastname;
         private string _txtEmail;
         private string _foutmeldingsLabel;
+
         private BindableCollection<Person> _persons;
-        
+        private BindableCollection<Category> _categories;
+
+        private string _txtTitle;
+        private string _txtPublisher;
+        private string _txtDesigner;
+        private string _txtMinPlayers;
+        private string _txtMaxPlayers;
+        private string _txtMinPlaytime;
+        private string _txtMaxPlaytime;
+        private string _txtMinAge;
+        private bool _smallParts;
+
+        //Boardgame
+        public bool SmallParts
+        {
+            get { return _smallParts; }
+            set { _smallParts = value; }
+        }
+        public string TxtMinAge
+        {
+            get { return _txtMinAge; }
+            set { _txtMinAge = value; }
+        }
+        public string TxtMaxPlaytime
+        {
+            get { return _txtMaxPlaytime; }
+            set { _txtMaxPlaytime = value; }
+        }
+        public string TxtMinPlaytime
+        {
+            get { return _txtMinPlaytime; }
+            set { _txtMinPlaytime = value; }
+        }
+        public string TxtMaxPlayers
+        {
+            get { return _txtMaxPlayers; }
+            set { _txtMaxPlayers = value; }
+        }
+        public string  TxtMinPlayers
+        {
+            get { return _txtMinPlayers; }
+            set { _txtMinPlayers = value; }
+        }
+        public string TxtDesigner
+        {
+            get { return _txtDesigner; }
+            set { _txtDesigner = value; }
+        }
+        public string TxtPublisher
+        {
+            get { return _txtPublisher; }
+            set { _txtPublisher = value; }
+        }
+        public string TxtTitle
+        {
+            get { return _txtTitle; }
+            set { _txtTitle = value; }
+        }
+
+        //Categorie
+        public BindableCollection<Category> Categories
+        {
+            get { return _categories; }
+            private set
+            {
+                _categories = value;
+                NotifyOfPropertyChange(() => Categories);
+            }
+        }
+        public Category SelectedCategory
+        {
+            get { return _selectedCategory; }
+            set
+            {
+                _selectedCategory = value;
+                NotifyOfPropertyChange(() => SelectedCategory);
+            }
+        }
+
+        //Person
         public BindableCollection<Person> Persons 
         {
             get 
@@ -31,7 +114,19 @@ namespace Project_WPF.ViewModels
             private set 
             {
                 _persons = value;
-                NotifyOfPropertyChange(()=>Persons);
+                NotifyOfPropertyChange(() => Persons);
+            }
+        }
+        public Person SelectedPerson
+        {
+            get
+            {
+                return this._selectedPerson;
+            }
+            set
+            {
+                this._selectedPerson = value;
+                NotifyOfPropertyChange(() => SelectedPerson);
             }
         }
         public string TxtFirstname
@@ -79,28 +174,24 @@ namespace Project_WPF.ViewModels
                 NotifyOfPropertyChange(() => FoutMeldingsLabel); 
             }
         }
-        public Person SelectedPerson
-        { 
-            get 
-            {
-                return this._selectedPerson;
-            } 
-            set 
-            {
-                this._selectedPerson = value;
-                NotifyOfPropertyChange(() => SelectedPerson);
-            } 
-        }
+        
 
+        //Constructor
         public MemberViewModel()
         {
             ReLoadMemberList();
+
+            //Vul de lijst van Categorie al in
+            CategoryList = DatabaseOperations.GetCategories();
+            Categories = new BindableCollection<Category>(CategoryList);
         }
 
         private void ReLoadMemberList()
         {
+            //Vul de lijst van personen in
             PersonList = DatabaseOperations.GetPeople();
             Persons = new BindableCollection<Person>(PersonList);
+            
         }
 
         public void AddNewMember()
@@ -177,6 +268,31 @@ namespace Project_WPF.ViewModels
             TxtFirstname = "";
             TxtLastname = "";
         }
+
+        public void AddGame()
+        {
+
+            //haal person id op van geselecteerde persoon
+            if (SelectedPerson != null)
+            {
+                Owner owner = new Owner();
+                owner.Person_id = SelectedPerson.Person_id;
+
+            }
+            else
+            {
+                FoutMeldingsLabel = $"Selecteer een lid aub";
+            }
+            
+            //Maak deze persoon owner met person id en het 
+            //plaats bij deze owner id het boardgame id van geselecteerde spel
+
+            //datagrid toont alle spellen van deze owner_id
+
+        }
+
+        
+
 
     }
 }

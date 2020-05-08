@@ -16,7 +16,7 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         
-        Title="MemberView" Height="500" Width="1000">
+        Title="MemberView" Height="500" Width="1200">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
@@ -43,29 +43,31 @@
         <!--Collectie Buttons-->
         <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center" Width="782" Margin="0,0,10,0" Grid.Column="1">
             <Button x:Name="AddGame" Content="Spel toevoegen" Width="250" Margin="5" />
-            <Button x:Name="btnVerwijderen" Content="Spel verwijderen" Margin="5" Width="250"  />
-            <Button x:Name="btnAanpassen" Content="Spel aanpassen" Margin="5" Width="250"  />
+            <Button x:Name="DeleteGame" Content="Spel verwijderen" Margin="5" Width="250"  />
+            <Button x:Name="EditGame" Content="Spel aanpassen" Margin="5" Width="250"  />
         </StackPanel>
 
-        <!--Tekstvelden om spel toe te voegen-->
+        <!--Tekstvelden van spel-->
         <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal" Margin="10,0,10,5" Width="auto">
-            <TextBox Width="100" Margin="0 0 5 0" materialDesign:HintAssist.Hint="Titel" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-            <TextBox Width="100" Margin="0 0 5 0" materialDesign:HintAssist.Hint="Publisher" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-            <TextBox Width="100" Margin="0 0 5 0" materialDesign:HintAssist.Hint="Designer" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+            <TextBox x:Name="TxtTitle" Width="100" Margin="0 0 5 0" materialDesign:HintAssist.Hint="Titel" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+            <TextBox x:Name="TxtPublisher" Width="100" Margin="0 0 5 0" materialDesign:HintAssist.Hint="Publisher" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+            <TextBox x:Name="TxtDesigner" Width="100" Margin="0 0 5 0" materialDesign:HintAssist.Hint="Designer" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
             <materialDesign:PackIcon Kind="UsersGroup" Margin="20 0 5 5" VerticalAlignment="Bottom"/>
-            <TextBox Width="30" materialDesign:HintAssist.Hint="min" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+            <TextBox x:Name="TxtMinPlayers" Width="30" materialDesign:HintAssist.Hint="min" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
             <Label Content="-" VerticalAlignment="Bottom"/>
-            <TextBox Width="30" materialDesign:HintAssist.Hint="max" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+            <TextBox x:Name="TxtMaxPlayers" Width="30" materialDesign:HintAssist.Hint="max" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
             <materialDesign:PackIcon Kind="ProgressClock" VerticalAlignment="Bottom" Margin="20 0 5 5"/>
-            <TextBox Width="30" materialDesign:HintAssist.Hint="min" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+            <TextBox x:Name="TxtMinPlaytime" Width="30" materialDesign:HintAssist.Hint="min" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
             <Label Content="-" VerticalAlignment="Bottom"/>
-            <TextBox Width="30" materialDesign:HintAssist.Hint="max" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+            <TextBox x:Name="TxtMaxPlaytime" Width="30" materialDesign:HintAssist.Hint="max" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
             <materialDesign:PackIcon Kind="AccountChild" VerticalAlignment="Bottom" Margin="20 0 5 5"/>
-            <TextBox Width="40" materialDesign:HintAssist.Hint="leeftijd" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+            <TextBox x:Name="TxtMinAge" Width="40" materialDesign:HintAssist.Hint="leeftijd" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
             <Label Content="+" VerticalAlignment="Bottom" />
             <materialDesign:PackIcon Kind="Baby" VerticalAlignment="Bottom" Margin="20 0 5 5"/>
-            <ToggleButton Margin="5" VerticalAlignment="Bottom" Style="{StaticResource MaterialDesignSwitchAccentToggleButton}" ToolTip="bevat GEEN kleine onderdelen" IsChecked="False"/>
-
+            <ToggleButton x:Name="SmallParts" Margin="5" VerticalAlignment="Bottom" Style="{StaticResource MaterialDesignSwitchAccentToggleButton}" ToolTip="bevat GEEN kleine onderdelen" IsChecked="False"/>
+            <ComboBox x:Name="Categories" DisplayMemberPath="Category_name" SelectedItem="{Binding SelectedCategory}" 
+            materialDesign:HintAssist.Hint="Categorie" Margin="20 0 5 5" Width="200" VerticalAlignment="Bottom">
+            </ComboBox>
             <!--Leden Flip kaart-->
         </StackPanel>
         <materialDesign:Flipper VerticalAlignment="Top" Height="363" Style="{StaticResource MaterialDesignCardFlipper}">
