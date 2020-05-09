@@ -30,14 +30,15 @@
   Header="Selecteer wie deelneemt aan de sessie"
   Margin="16">
             <StackPanel Orientation="Horizontal">
-                <ComboBox Width="150" VerticalAlignment="Top"
-                    materialDesign:HintAssist.Hint="Spelers" Margin="20">
+                <ComboBox x:Name="Players" SelectedItem="SelectedPlayer" DisplayMemberPath="Fullname"
+                          Width="150" VerticalAlignment="Top"
+                    materialDesign:HintAssist.Hint="Deelnemers" Margin="20">
                 </ComboBox>
                 <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                    <Button Width="100" Margin="5"
+                    <Button x:Name="AddPlayerToSession" Width="100" Margin="5"
   Content="{materialDesign:PackIcon ArrowRightBoldOutline}"
   ToolTip="Voeg toe aan deelnemers" />
-                    <Button Width="100" Margin="5"
+                    <Button x:Name="RemovePlayerFromSession" Width="100" Margin="5"
   Content="{materialDesign:PackIcon ArrowLeftBoldOutline}"
   ToolTip="Verwijder uit deelnemers" />
                 </StackPanel>
@@ -48,8 +49,9 @@
   Header="Selecteer een spel en de datum van de sessie"
   Margin="16">
             <StackPanel Orientation="Horizontal">
-                <ComboBox Width="150"
-                    materialDesign:HintAssist.Hint="Spel" Margin="10">
+                <ComboBox x:Name="Boardgames" DisplayMemberPath="Titel"
+                    Width="150"
+                    materialDesign:HintAssist.Hint="Spel" Margin="10" >
                 </ComboBox>
                 <DatePicker Margin="10"
                     Width="140"
@@ -69,13 +71,13 @@
                 </Grid.RowDefinitions>
                 <StackPanel Orientation="Vertical">
                     <Label Content="Deelnemers : "/>
-                    <TextBlock x:Name="txtDeelnemers" Height="auto"/>
+                    <DataGrid x:Name="DataGridDeelnemers" Height="190" Margin="5" />
                     <Label Content="Spel : "/>
                     <TextBlock x:Name="txtTeSpelenSpel"/>
                     <Label Content="Datum : "/>
                     <TextBlock x:Name="txtSpeelDatum"/>
                 </StackPanel>
-                <Button Grid.Row="1" Margin="10"
+                <Button x:Name="ConfirmSession" Grid.Row="1" Margin="10"
     Style="{StaticResource MaterialDesignRaisedButton}"
     Width="200">
                     Bevestig Sessie

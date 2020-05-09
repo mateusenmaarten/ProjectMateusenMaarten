@@ -32,8 +32,35 @@ namespace Project_DAL
                 {
                     return $"De minimum speelduur moet een positief getal zijn" + Environment.NewLine;
                 }
-                //controle toevoegen of aanpassen
-
+                //controle toevoegen of aanpassen (is strenger)
+                if (columnName == "Titel" && string.IsNullOrWhiteSpace(Titel))
+                {
+                    return $"Vul een titel in" + Environment.NewLine;
+                }
+                if (columnName == "MinNumberOfPlayers" && MinNumberOfPlayers <= 0)
+                {
+                    return $"minimum aantal spelers moet groter zijn dan 0" + Environment.NewLine;
+                }
+                if (columnName == "MaxNumberOfPlayers" && MaxNumberOfPlayers <= 0)
+                {
+                    return $"maximum aantal spelers moet groter zijn dan 0" + Environment.NewLine;
+                }
+                if (columnName == "MinPlayingTime" && MinPlayingTime <= 0)
+                {
+                    return $"minimum speeltijd moet langer zijn dan 0 minuten" + Environment.NewLine;
+                }
+                if (columnName == "MaxPlayingTime" && MaxPlayingTime <= 0)
+                {
+                    return $"maximum speeltijd moet langer zijn dan 0 minuten" + Environment.NewLine;
+                }
+                if (columnName == "MinAgeToPlay" && MinAgeToPlay <= 0)
+                {
+                    return $"minimum leeftijd moet groter zijn dan 0" + Environment.NewLine;
+                }
+                if (columnName == "MaxAgeToPlay" && MaxAgeToPlay <= 0)
+                {
+                    return $"maximum leeftijd moet groter zijn dan 0" + Environment.NewLine;
+                }
                 return "";
             }
         }

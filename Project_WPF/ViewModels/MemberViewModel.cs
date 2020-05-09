@@ -196,7 +196,6 @@ namespace Project_WPF.ViewModels
 
         public void AddNewMember()
         {
-            
             Person personToAdd = new Person();
             personToAdd.Firstname = TxtFirstname;
             personToAdd.Lastname = TxtLastname;
@@ -271,27 +270,74 @@ namespace Project_WPF.ViewModels
 
         public void AddGame()
         {
+            string foutmeldingen = Valideer("SelectedPerson");
+            foutmeldingen += Valideer("SelectedCategory");
+            foutmeldingen += Valideer("TxtMinPlayers");
+            foutmeldingen += Valideer("TxtMaxPlayers");
+            foutmeldingen += Valideer("TxtMinAge");
+            foutmeldingen += Valideer("TxtMinPlaytime");
+            foutmeldingen += Valideer("TxtMaxPlaytime");
 
-            //haal person id op van geselecteerde persoon
-            if (SelectedPerson != null)
+            if (string.IsNullOrWhiteSpace(foutmeldingen))
             {
-                Owner owner = new Owner();
-                owner.Person_id = SelectedPerson.Person_id;
+                Boardgame boardgameToAdd = new Boardgame();
+                //Publisher??
+                boardgameToAdd.Titel = TxtTitle;
+                boardgameToAdd.MinNumberOfPlayers = int.Parse(TxtMinPlayers);
+                //haal person id 
 
+                //(samen met boardgame id nieuwe Owner maken) van opgehaalde person id --> er is nog geen boardgame id?
+
+                //haal categorie id 
+
+                //(samen met boardgame id niewe Boardgame_category maken) van opgehaalde categorie id --> er is nog geen boardgame id?  
             }
             else
             {
-                FoutMeldingsLabel = $"Selecteer een lid aub";
+                MessageBox.Show(foutmeldingen);
             }
-            
-            //Maak deze persoon owner met person id en het 
-            //plaats bij deze owner id het boardgame id van geselecteerde spel
+
+
 
             //datagrid toont alle spellen van deze owner_id
-
         }
 
-        
+        private string Valideer(string columnName)
+        {
+            if (columnName == "SelectedPerson" && SelectedPerson == null)
+            {
+                return $"Selecteer een lid om eigenaar te maken" + Environment.NewLine;
+            }
+            if (columnName == "SelectedCategory" && SelectedCategory == null)
+            {
+                return $"Selecteer een categorie" + Environment.NewLine;
+            }
+            if (columnName == "TxtMinPlayers" && !int.TryParse(TxtMinPlayers, out int txtMinPlayer))
+            {
+                return $"Minimum aantal spelers moet een numerieke waarde zijn" + Environment.NewLine;
+            }
+            if (columnName == "TxtMaxPlayers" && !int.TryParse(TxtMaxPlayers, out int txtMaxPlayer))
+            {
+                return $"Maximum aantal spelers moet een numerieke waarde zijn" + Environment.NewLine;
+            }
+            if (columnName == "TxtMinAge" && !int.TryParse(TxtMinAge, out int txtMinAge))
+            {
+                return $"Minimum leeftijd moet een numerieke waarde zijn" + Environment.NewLine;
+            }
+            //if (columnName == "TxtMaxAge" && !int.TryParse(TxtMaxAge, out int txtMaxAge))
+            //{
+            //    return $"Maximum leeftijd moet een numerieke waarde zijn" + Environment.NewLine;
+            //}
+            if (columnName == "TxtMinPlaytime" && !int.TryParse(TxtMinPlaytime, out int txtMinPlaytime))
+            {
+                return $"Minimum speelduur moet een numerieke waarde zijn" + Environment.NewLine;
+            }
+            if (columnName == "TxtMaxPlaytime" && !int.TryParse(TxtMaxPlaytime, out int txtMaxPlaytime))
+            {
+                return $"Maximum speelduur moet een numerieke waarde zijn" + Environment.NewLine;
+            }
+            return "";
+        }
 
 
     }

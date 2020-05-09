@@ -20,6 +20,15 @@ namespace Project_DAL
             }
         }
 
+        public static List<Boardgame> GetBoardgames()
+        {
+            using (GameClubEntities entities = new GameClubEntities())
+            {
+                var query = entities.Boardgames;
+                return query.ToList();
+            }
+        }
+
         public static List<Category> GetCategories()
         {
             using (GameClubEntities entities = new GameClubEntities())
