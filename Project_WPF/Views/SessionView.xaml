@@ -49,11 +49,11 @@
   Header="Selecteer een spel en de datum van de sessie"
   Margin="16">
             <StackPanel Orientation="Horizontal">
-                <ComboBox x:Name="Boardgames" DisplayMemberPath="Titel"
+                <ComboBox x:Name="Boardgames" SelectedItem="SelectedBoardgame" DisplayMemberPath="Titel"
                     Width="150"
                     materialDesign:HintAssist.Hint="Spel" Margin="10" >
                 </ComboBox>
-                <DatePicker Margin="10"
+                <DatePicker x:Name="DateToPlay" Margin="10"
                     Width="140"
                     materialDesign:HintAssist.Hint="Pick Date"
                     Style="{StaticResource MaterialDesignOutlinedDatePicker}" />
@@ -70,16 +70,26 @@
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
                 <StackPanel Orientation="Vertical">
-                    <Label Content="Deelnemers : "/>
-                    <DataGrid x:Name="DataGridDeelnemers" Height="190" Margin="5" />
-                    <Label Content="Spel : "/>
-                    <TextBlock x:Name="txtTeSpelenSpel"/>
+                    <DataGrid x:Name="DataGridPlayers" 
+                              ItemsSource="{Binding SelectedPlayers}"
+                              SelectedItem="{Binding SelectedGridPlayer}"
+                              Height="220" Margin="5" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Deelnemers :" Binding="{Binding Fullname}" />
+                        </DataGrid.Columns>
+                        </DataGrid>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Spel : "/>
+                    <Label x:Name="TxtGameToPlay" Content="{Binding Path=SelectedBoardgame.Titel}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
                     <Label Content="Datum : "/>
-                    <TextBlock x:Name="txtSpeelDatum"/>
+                    <Label x:Name="TxtDateToPlay" Content="{Binding ElementName=DateToPlay, Path=Text}"/>
+                    </StackPanel>
                 </StackPanel>
                 <Button x:Name="ConfirmSession" Grid.Row="1" Margin="10"
-    Style="{StaticResource MaterialDesignRaisedButton}"
-    Width="200">
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        Width="200">
                     Bevestig Sessie
                 </Button>
             </Grid>
