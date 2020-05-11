@@ -29,9 +29,14 @@ namespace Project_WPF.ViewModels
         private BindableCollection<Person> _players;
         private BindableCollection<Boardgame> _boardgames;
         private BindableCollection<Person> _selectedPlayers = new BindableCollection<Person>();
+        private BindableCollection<Person> _dataGridPlayers = new BindableCollection<Person>();
         private string _txtGameToPlay;
         private string _txtDateToPlay;
         private DatePicker _dateToPlay = new DatePicker();
+        private Person _selectedPlayer;
+        private Boardgame _selectedBoardgame;
+        private Person _selectedGridPlayer;
+        private DateTime? _selectedDate;
 
         public DatePicker DateToPlay
         {
@@ -48,7 +53,6 @@ namespace Project_WPF.ViewModels
             get { return _txtGameToPlay; }
             set { _txtGameToPlay = value; NotifyOfPropertyChange(() => TxtGameToPlay); }
         }
-
         public BindableCollection<Person> SelectedPlayers
         {
             get { return _selectedPlayers; }
@@ -58,32 +62,21 @@ namespace Project_WPF.ViewModels
                 NotifyOfPropertyChange(() => SelectedPlayers);
             }
         }
-
-        private Person _selectedPlayer;
-        private Boardgame _selectedBoardgame;
-        private BindableCollection<Person> _dataGridPlayers = new BindableCollection<Person>();
-        private Person _selectedGridPlayer;
-        private DateTime? _selectedDate;
-
         public DateTime? SelectedDate
         {
             get { return _selectedDate; }
             set { _selectedDate = value; NotifyOfPropertyChange(() => SelectedDate); }
         }
-
         public Person SelectedGridPlayer
         {
             get { return _selectedGridPlayer; }
             set { _selectedGridPlayer = value; NotifyOfPropertyChange(() => SelectedGridPlayer); }
         }
-
         public BindableCollection<Person> DataGridPlayers
         {
             get { return _dataGridPlayers; }
             set { _dataGridPlayers = value; NotifyOfPropertyChange(() => DataGridPlayers); }
         }
-
-
         public Boardgame SelectedBoardgame
         {
             get { return _selectedBoardgame; }
@@ -105,7 +98,6 @@ namespace Project_WPF.ViewModels
                 NotifyOfPropertyChange(() => SelectedPlayer);
             }
         }
-
         public BindableCollection<Boardgame> Boardgames
         {
             get { return _boardgames; }
@@ -127,8 +119,6 @@ namespace Project_WPF.ViewModels
                 NotifyOfPropertyChange(() => Players);
             }
         }
-
-        
 
         public void AddPlayerToSession()
         {

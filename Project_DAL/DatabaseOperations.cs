@@ -30,6 +30,16 @@ namespace Project_DAL
             }
         }
 
+        public static List<Boardgame> GetSearchedBoardgames(int categoryID, int numberOfPlayers)
+        {
+            using (GameClubEntities gameClubEntities = new GameClubEntities())
+            {
+                var query = gameClubEntities.Boardgames
+                    .Where(x => x.Boardgame_Category.Any(y => y.Category_id == categoryID))
+                    .Where(z => z.MinNumberOfPlayers <= numberOfPlayers && z.MaxNumberOfPlayers >= numberOfPlayers);
+                return query.ToList();
+            }
+        }
         public static List<Category> GetCategories()
         {
             using (GameClubEntities entities = new GameClubEntities())
