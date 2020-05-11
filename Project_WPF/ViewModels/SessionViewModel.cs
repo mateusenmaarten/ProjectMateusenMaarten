@@ -198,6 +198,8 @@ namespace Project_WPF.ViewModels
             {
                 MessageBox.Show(foutmelding);
             }
+
+            ClearAllFields();
         }
 
         public string Valideer(string columnName)
@@ -219,6 +221,14 @@ namespace Project_WPF.ViewModels
                 return $"Selecteer minstens 1 speler om deel te nemen";
             }
             return "";
+        }
+
+        public void ClearAllFields()
+        {
+            SelectedPlayers.Clear();
+            SelectedPlayer = null;
+            SelectedDate = null;
+            SelectedBoardgame = null;
         }
     }
 }
