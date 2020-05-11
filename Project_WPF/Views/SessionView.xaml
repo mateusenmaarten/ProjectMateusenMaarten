@@ -53,7 +53,7 @@
                     Width="150"
                     materialDesign:HintAssist.Hint="Spel" Margin="10" >
                 </ComboBox>
-                <DatePicker x:Name="DateToPlay" Margin="10"
+                <DatePicker x:Name="DateToPlay" SelectedDate="{Binding SelectedDate}" Margin="10"
                     Width="140"
                     materialDesign:HintAssist.Hint="Pick Date"
                     Style="{StaticResource MaterialDesignOutlinedDatePicker}" />

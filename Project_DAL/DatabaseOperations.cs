@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -81,6 +82,47 @@ namespace Project_DAL
                 using (GameClubEntities gameClubEntities = new GameClubEntities())
                 {
                     gameClubEntities.Entry(person).State = EntityState.Modified;
+                    return gameClubEntities.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                FileOperations.FoutLoggen(ex);
+                return 0;
+            }
+        }
+
+        public static int AddPlaySession(PlaySession session, ref int session_id)
+        {
+            session_id = 0;
+            try
+            {
+                using (GameClubEntities gameClubEntities = new GameClubEntities())
+                {
+                    gameClubEntities.PlaySessions.Add(session);
+                    int changes = gameClubEntities.SaveChanges();
+                    session_id = session.PlaySession_id;
+                    return changes;
+                }
+            }
+            catch (Exception ex)
+            {
+                FileOperations.FoutLoggen(ex);
+                return 0;
+            }
+            
+        }
+
+        public static int AddPlayer(int personID, int sessionID)
+        {
+            try
+            {
+                using (GameClubEntities gameClubEntities = new GameClubEntities())
+                {
+                    Player player = new Player();
+                    player.Person_id = personID;
+                    player.PlaySession_id = sessionID;
+                    gameClubEntities.Players.Add(player);
                     return gameClubEntities.SaveChanges();
                 }
             }

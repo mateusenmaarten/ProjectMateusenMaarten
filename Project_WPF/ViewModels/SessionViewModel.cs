@@ -31,7 +31,7 @@ namespace Project_WPF.ViewModels
         private BindableCollection<Person> _selectedPlayers = new BindableCollection<Person>();
         private string _txtGameToPlay;
         private string _txtDateToPlay;
-        private DatePicker _dateToPlay;
+        private DatePicker _dateToPlay = new DatePicker();
 
         public DatePicker DateToPlay
         {
@@ -63,6 +63,13 @@ namespace Project_WPF.ViewModels
         private Boardgame _selectedBoardgame;
         private BindableCollection<Person> _dataGridPlayers = new BindableCollection<Person>();
         private Person _selectedGridPlayer;
+        private DateTime? _selectedDate;
+
+        public DateTime? SelectedDate
+        {
+            get { return _selectedDate; }
+            set { _selectedDate = value; NotifyOfPropertyChange(() => SelectedDate); }
+        }
 
         public Person SelectedGridPlayer
         {
@@ -160,7 +167,47 @@ namespace Project_WPF.ViewModels
         }
         public void ConfirmSession()
         {
+            int sessionId = 0;
+            string foutmelding = Valideer("SelectedBoardgame");
+            foutmelding += Valideer("DateToPlay");
+            foutmelding += Valideer("SelectedPlayers");
 
+            if (foutmelding == "")
+            {
+                string spelersInSessie = "";
+
+                PlaySession playSession = new PlaySession();
+                playSession.Boardgame_id = SelectedBoardgame.Boardgame_id;
+                playSession.SessionDate = (DateTime)SelectedDate;
+                //Playsession naar db --> meegeven : bg_id en Sessiondate
+                //Opvragen : session_id
+
+                int ok = DatabaseOperations.AddPlaySession(playSession, ref sessionId);
+                if (ok > 0)
+                {
+                    MessageBox.Show($"Speelsessie toegevoegd met sessie ID : {sessionId}");
+                }
+                //Met dit session_id alle spelers toevoegen
+                foreach (Person player in SelectedPlayers)
+                {
+                    int oke = DatabaseOperations.AddPlayer(player.Person_id, sessionId);
+                    if (oke > 0)
+                    {
+                        spelersInSessie += player.Fullname + Environment.NewLine;
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Toevoegen van {player.Fullname} niet gelukt");
+                    }
+                }
+
+                MessageBox.Show($"De volgende spelers zijn toegevoegd aan speelsessie {sessionId}" + Environment.NewLine +
+                                spelersInSessie);
+            }
+            else
+            {
+                MessageBox.Show(foutmelding);
+            }
         }
 
         public string Valideer(string columnName)
@@ -172,6 +219,14 @@ namespace Project_WPF.ViewModels
             if (columnName == "SelectedBoardgame" && SelectedBoardgame == null)
             {
                 return $"Selecteer een bordspel om te spelen" + Environment.NewLine;
+            }
+            if (columnName == nameof(SelectedDate) && !SelectedDate.HasValue)
+            {
+                return $"Selecteer een datum om te spelen" + Environment.NewLine;
+            }
+            if (columnName == "SelectedPlayers" && SelectedPlayers.Count <= 0)
+            {
+                return $"Selecteer minstens 1 speler om deel te nemen";
             }
             return "";
         }
