@@ -90,11 +90,15 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ViewModels\BoardgameViewModel.cs" />
     <Compile Include="ViewModels\JsonViewModel.cs" />
     <Compile Include="ViewModels\MemberViewModel.cs" />
     <Compile Include="ViewModels\SearchViewModel.cs" />
     <Compile Include="ViewModels\SessionViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
+    <Compile Include="Views\BoardgameView.xaml.cs">
+      <DependentUpon>BoardgameView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\JsonView.xaml.cs">
       <DependentUpon>JsonView.xaml</DependentUpon>
     </Compile>
@@ -146,6 +150,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\BoardgameView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\JsonView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

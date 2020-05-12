@@ -49,6 +49,15 @@ namespace Project_DAL
             }
         }
 
+        public static List<Publisher> GetPublishers()
+        {
+            using (GameClubEntities entities = new GameClubEntities())
+            {
+                var query = entities.Publishers;
+                return query.ToList();
+            }
+        }
+
         public static int AddBoardgame(Boardgame bg)
         {
             try

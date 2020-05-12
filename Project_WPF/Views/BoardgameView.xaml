@@ -1,0 +1,92 @@
+﻿<Window x:Class="Project_WPF.Views.BoardgameView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Project_WPF.Views"
+        mc:Ignorable="d"
+        
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        
+        ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+        Title="BoardgameView" Height="450" Width="800">
+    <Grid>
+        <GroupBox
+            Header="Voeg een spel toe bij een lid"
+            Margin="5">
+            <TextBlock>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    
+             <StackPanel Grid.Row="0" Orientation="Horizontal" >
+                <Label Content="Selecteer een eigenaar voor het spel :" VerticalAlignment="Center"/>
+                 
+                <ComboBox   x:Name="Persons" ItemsSource="{Binding Persons}" DisplayMemberPath="Fullname" SelectedItem="{Binding SelectedPerson}" 
+                            materialDesign:HintAssist.Hint="Ledenlijst" Margin="5" VerticalAlignment="Bottom"
+                            Width="180" Grid.Row="1">
+                </ComboBox>
+             </StackPanel>
+             <TextBox Grid.Row="1" HorizontalAlignment="Left" 
+                      x:Name="TxtTitle" Width="400" Margin="5" 
+                      materialDesign:HintAssist.Hint="Titel" 
+                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+              /> 
+            
+            <ComboBox Grid.Row="3" x:Name="Publishers" ItemsSource="{Binding Publishers}" DisplayMemberPath="Publisher_name" SelectedItem="{Binding SelectedPublisher}" 
+                      materialDesign:HintAssist.Hint="Publisher" Margin="10" Width="auto" >
+            </ComboBox>
+                    
+            <StackPanel Grid.Row="2" Orientation="Horizontal" >
+
+            <materialDesign:PackIcon Kind="UsersGroup" Margin="5 0 5 5" VerticalAlignment="Bottom"/>
+            <TextBox x:Name="TxtMinPlayers" Width="30" materialDesign:HintAssist.Hint="min" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+            <Label Content="-" VerticalAlignment="Bottom"/>
+            <TextBox x:Name="TxtMaxPlayers" Width="30" materialDesign:HintAssist.Hint="max" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+            <materialDesign:PackIcon Kind="ProgressClock" VerticalAlignment="Bottom" Margin="20 0 5 5"/>
+            <TextBox x:Name="TxtMinPlaytime" Width="30" materialDesign:HintAssist.Hint="min" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+            <Label Content="-" VerticalAlignment="Bottom"/>
+            <TextBox x:Name="TxtMaxPlaytime" Width="30" materialDesign:HintAssist.Hint="max" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+            <materialDesign:PackIcon Kind="AccountChild" VerticalAlignment="Bottom" Margin="20 0 5 5"/>
+            <TextBox x:Name="TxtMinAge" Width="40" materialDesign:HintAssist.Hint="leeftijd" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+            <Label Content="+" VerticalAlignment="Bottom" />
+            <materialDesign:PackIcon Kind="Baby" VerticalAlignment="Bottom" Margin="20 0 5 5"/>
+            <ToggleButton x:Name="SmallParts" Margin="5" VerticalAlignment="Bottom" Style="{StaticResource MaterialDesignSwitchAccentToggleButton}" ToolTip="bevat GEEN kleine onderdelen" IsChecked="False"/>
+            
+            
+            </StackPanel>
+                    
+            <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="5">
+                
+                <ListBox x:Name="DesignerList" Height="130" Width="200" BorderThickness="2"
+                  SelectionMode="Multiple"
+                  ItemsSource="{Binding Designers}">
+                </ListBox>
+                
+                 <ListBox  x:Name="CategoryList" DisplayMemberPath="Category_name" Height="130" Width="200" BorderThickness="2"
+                  SelectionMode="Multiple"
+                  ItemsSource="{Binding Categories}">
+                </ListBox>
+
+            </StackPanel>
+                    <Button x:Name="AddGame" Content="Voeg spel toe" Grid.Row="5"/>
+                </Grid>
+            </TextBlock>
+        </GroupBox>
+        
+        
+    </Grid>
+</Window>

@@ -14,7 +14,7 @@
         TextOptions.TextRenderingMode="Auto"        
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        
+        ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
         Title="JsonView" Height="450" Width="800">
     <Grid>
         <Grid.RowDefinitions>

@@ -13,6 +13,8 @@ namespace Project_WPF.ViewModels
 {
     public class MemberViewModel : Screen
     {
+        WindowManager wm = new WindowManager();
+
         List<Person> PersonList = new List<Person>();
         List<Category> CategoryList = new List<Category>();
 
@@ -270,74 +272,41 @@ namespace Project_WPF.ViewModels
 
         public void AddGame()
         {
-            string foutmeldingen = Valideer("SelectedPerson");
-            foutmeldingen += Valideer("SelectedCategory");
-            foutmeldingen += Valideer("TxtMinPlayers");
-            foutmeldingen += Valideer("TxtMaxPlayers");
-            foutmeldingen += Valideer("TxtMinAge");
-            foutmeldingen += Valideer("TxtMinPlaytime");
-            foutmeldingen += Valideer("TxtMaxPlaytime");
+            wm.ShowWindow(new BoardgameViewModel(), null,null);
 
-            if (string.IsNullOrWhiteSpace(foutmeldingen))
-            {
-                Boardgame boardgameToAdd = new Boardgame();
-                //Publisher??
-                boardgameToAdd.Titel = TxtTitle;
-                boardgameToAdd.MinNumberOfPlayers = int.Parse(TxtMinPlayers);
-                //haal person id 
+            //string foutmeldingen = Valideer("SelectedPerson");
+            //foutmeldingen += Valideer("SelectedCategory");
+            //foutmeldingen += Valideer("TxtMinPlayers");
+            //foutmeldingen += Valideer("TxtMaxPlayers");
+            //foutmeldingen += Valideer("TxtMinAge");
+            //foutmeldingen += Valideer("TxtMinPlaytime");
+            //foutmeldingen += Valideer("TxtMaxPlaytime");
 
-                //(samen met boardgame id nieuwe Owner maken) van opgehaalde person id --> er is nog geen boardgame id?
-
-                //haal categorie id 
-
-                //(samen met boardgame id niewe Boardgame_category maken) van opgehaalde categorie id --> er is nog geen boardgame id?  
-            }
-            else
-            {
-                MessageBox.Show(foutmeldingen);
-            }
-
-
-
-            //datagrid toont alle spellen van deze owner_id
-        }
-
-        private string Valideer(string columnName)
-        {
-            if (columnName == "SelectedPerson" && SelectedPerson == null)
-            {
-                return $"Selecteer een lid om eigenaar te maken" + Environment.NewLine;
-            }
-            if (columnName == "SelectedCategory" && SelectedCategory == null)
-            {
-                return $"Selecteer een categorie" + Environment.NewLine;
-            }
-            if (columnName == "TxtMinPlayers" && !int.TryParse(TxtMinPlayers, out int txtMinPlayer))
-            {
-                return $"Minimum aantal spelers moet een numerieke waarde zijn" + Environment.NewLine;
-            }
-            if (columnName == "TxtMaxPlayers" && !int.TryParse(TxtMaxPlayers, out int txtMaxPlayer))
-            {
-                return $"Maximum aantal spelers moet een numerieke waarde zijn" + Environment.NewLine;
-            }
-            if (columnName == "TxtMinAge" && !int.TryParse(TxtMinAge, out int txtMinAge))
-            {
-                return $"Minimum leeftijd moet een numerieke waarde zijn" + Environment.NewLine;
-            }
-            //if (columnName == "TxtMaxAge" && !int.TryParse(TxtMaxAge, out int txtMaxAge))
+            //if (string.IsNullOrWhiteSpace(foutmeldingen))
             //{
-            //    return $"Maximum leeftijd moet een numerieke waarde zijn" + Environment.NewLine;
+            //    Boardgame boardgameToAdd = new Boardgame();
+            //    //Publisher??
+            //    boardgameToAdd.Titel = TxtTitle;
+            //    boardgameToAdd.MinNumberOfPlayers = int.Parse(TxtMinPlayers);
+            //    //haal person id 
+
+            //    //(samen met boardgame id nieuwe Owner maken) van opgehaalde person id --> er is nog geen boardgame id?
+
+            //    //haal categorie id 
+
+            //    //(samen met boardgame id niewe Boardgame_category maken) van opgehaalde categorie id --> er is nog geen boardgame id?  
             //}
-            if (columnName == "TxtMinPlaytime" && !int.TryParse(TxtMinPlaytime, out int txtMinPlaytime))
-            {
-                return $"Minimum speelduur moet een numerieke waarde zijn" + Environment.NewLine;
-            }
-            if (columnName == "TxtMaxPlaytime" && !int.TryParse(TxtMaxPlaytime, out int txtMaxPlaytime))
-            {
-                return $"Maximum speelduur moet een numerieke waarde zijn" + Environment.NewLine;
-            }
-            return "";
+            //else
+            //{
+            //    MessageBox.Show(foutmeldingen);
+            //}
+
+
+
+            ////datagrid toont alle spellen van deze owner_id
         }
+
+        
 
 
     }
