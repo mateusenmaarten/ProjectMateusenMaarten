@@ -33,7 +33,7 @@
             materialDesign:HintAssist.Hint="Ledenlijst" Margin="10" VerticalAlignment="Bottom"
                   Grid.Row="1">
         </ComboBox>
-        <Label Grid.Row="2" Grid.Column="0" Margin="5" x:Name="FoutMeldingsLabel" Content="Foutmelding" Foreground="#DDFF0000"/>
+        
         <!--Collectie-->
         <GroupBox Grid.Column="1" Header="Collectie" Margin="5">
             <DataGrid x:Name="memberDatagrid"  Margin="5">
@@ -42,12 +42,12 @@
         </GroupBox>
 
         <!--Collectie Buttons-->
-        <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center" Width="782" Margin="0,0,10,0" Grid.Column="1">
-            <Button x:Name="AddGame" Content="Spel toevoegen" Width="250" Margin="5" />
+        <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center" Width="574" Margin="10,0" Grid.Column="1">
+            <Button x:Name="Temp" Content="Spel toevoegen" Width="250" Margin="5" />
             <Button x:Name="DeleteGame" Content="Spel verwijderen" Margin="5" Width="250"  />
         </StackPanel>
 
-        
+
         <materialDesign:Flipper VerticalAlignment="Top" Height="363" Style="{StaticResource MaterialDesignCardFlipper}">
             <!--Voorkant flipkaart-->
             <materialDesign:Flipper.FrontContent>
@@ -72,36 +72,36 @@
                             materialDesign:HintAssist.IsFloating="True"
                             Margin="0 5 0 0">
 
-                            </TextBox>
-                            <TextBox Text="{Binding Path=TxtLastname}"
+                        </TextBox>
+                        <TextBox Text="{Binding Path=TxtLastname}"
                             Grid.Row="1"
                                  
                             materialDesign:HintAssist.Hint="Achternaam"
                             materialDesign:HintAssist.IsFloating="True"
                             Margin="0 5 0 0">
 
-                            </TextBox>
-                            <TextBox Text="{Binding Path=TxtEmail}"
+                        </TextBox>
+                        <TextBox Text="{Binding Path=TxtEmail}"
                             
                             materialDesign:HintAssist.Hint="Email"
                             materialDesign:HintAssist.IsFloating="True"
                             Margin="0 5 0 0">
 
-                            </TextBox>
-                            <Button  x:Name="AddNewMember" cal:Message.Attach="AddNewMember" 
+                        </TextBox>
+                        <Button  x:Name="AddNewMember" cal:Message.Attach="AddNewMember" 
                             Style="{StaticResource MaterialDesignRaisedButton}"
                             Width="auto"
                             Margin="5"
                             ToolTip="Voeg een nieuw lid toe">
-                                Nieuw lid toevoegen
-                            </Button>
-                        
+                            Nieuw lid toevoegen
+                        </Button>
+
                         <Button x:Name="EditExistingMember"  cal:Message.Attach="EditExistingMember"
                                     Command="{x:Static materialDesign:Flipper.FlipCommand}"
                                     Margin="5" Width="auto"
                                     Content="{materialDesign:PackIcon AccountEditOutline}"
                                     ToolTip="Bewerk een bestaand lid" />
-                        
+
                     </StackPanel>
                 </Grid>
             </materialDesign:Flipper.FrontContent>

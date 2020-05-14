@@ -24,67 +24,12 @@ namespace Project_WPF.ViewModels
         private string _txtFirstname;
         private string _txtLastname;
         private string _txtEmail;
-        private string _foutmeldingsLabel;
+        
 
         private BindableCollection<Person> _persons;
         private BindableCollection<Category> _categories;
 
-        private string _txtTitle;
-        private string _txtPublisher;
-        private string _txtDesigner;
-        private string _txtMinPlayers;
-        private string _txtMaxPlayers;
-        private string _txtMinPlaytime;
-        private string _txtMaxPlaytime;
-        private string _txtMinAge;
-        private bool _smallParts;
-
-        //Boardgame
-        public bool SmallParts
-        {
-            get { return _smallParts; }
-            set { _smallParts = value; }
-        }
-        public string TxtMinAge
-        {
-            get { return _txtMinAge; }
-            set { _txtMinAge = value; }
-        }
-        public string TxtMaxPlaytime
-        {
-            get { return _txtMaxPlaytime; }
-            set { _txtMaxPlaytime = value; }
-        }
-        public string TxtMinPlaytime
-        {
-            get { return _txtMinPlaytime; }
-            set { _txtMinPlaytime = value; }
-        }
-        public string TxtMaxPlayers
-        {
-            get { return _txtMaxPlayers; }
-            set { _txtMaxPlayers = value; }
-        }
-        public string  TxtMinPlayers
-        {
-            get { return _txtMinPlayers; }
-            set { _txtMinPlayers = value; }
-        }
-        public string TxtDesigner
-        {
-            get { return _txtDesigner; }
-            set { _txtDesigner = value; }
-        }
-        public string TxtPublisher
-        {
-            get { return _txtPublisher; }
-            set { _txtPublisher = value; }
-        }
-        public string TxtTitle
-        {
-            get { return _txtTitle; }
-            set { _txtTitle = value; }
-        }
+        
 
         //Categorie
         public BindableCollection<Category> Categories
@@ -167,15 +112,7 @@ namespace Project_WPF.ViewModels
                 NotifyOfPropertyChange(() => TxtEmail);
             }
         }
-        public string FoutMeldingsLabel 
-        {
-            get { return _foutmeldingsLabel; }
-            set 
-            { 
-                _foutmeldingsLabel = value; 
-                NotifyOfPropertyChange(() => FoutMeldingsLabel); 
-            }
-        }
+        
         
 
         //Constructor
@@ -207,13 +144,13 @@ namespace Project_WPF.ViewModels
             {
                 int personID = 0;
                 DatabaseOperations.AddPerson(personToAdd, ref personID);
-                FoutMeldingsLabel = $"{personToAdd.Fullname} is nu lid met ID : {personToAdd.Person_id}";
+                MessageBox.Show($"{personToAdd.Fullname} is nu lid met ID : {personToAdd.Person_id}");
                 EmptyTextFields();
                 
             }
             else
             {
-                FoutMeldingsLabel = personToAdd.Error;
+                MessageBox.Show(personToAdd.Error);
             }
 
             ReLoadMemberList();
@@ -223,7 +160,7 @@ namespace Project_WPF.ViewModels
         {
             if (SelectedPerson == null)
             {
-                FoutMeldingsLabel = $"Selecteer een lid aub";
+                MessageBox.Show($"Selecteer een lid aub");
             }
             
         }
@@ -238,16 +175,16 @@ namespace Project_WPF.ViewModels
                         int ok = DatabaseOperations.EditPerson(personToEdit);
                         if (ok > 0)
                         {
-                            FoutMeldingsLabel = $"Wijziging gelukt!";
+                        MessageBox.Show($"Wijziging gelukt!");
                         }
                         else
                         {
-                            FoutMeldingsLabel = $"Er is iets fout gegaan";
+                        MessageBox.Show($"Er is iets fout gegaan");
                         }
                     }
                     else
                     {
-                        FoutMeldingsLabel = personToEdit.Error;
+                        MessageBox.Show( personToEdit.Error);
                     }
                 }
             
@@ -259,7 +196,7 @@ namespace Project_WPF.ViewModels
         public void BackButton()
         {
             EmptyTextFields();
-            FoutMeldingsLabel = "";
+            
             SelectedPerson = null;
         }
 
@@ -270,41 +207,7 @@ namespace Project_WPF.ViewModels
             TxtLastname = "";
         }
 
-        public void AddGame()
-        {
-            wm.ShowWindow(new BoardgameViewModel(), null,null);
-
-            //string foutmeldingen = Valideer("SelectedPerson");
-            //foutmeldingen += Valideer("SelectedCategory");
-            //foutmeldingen += Valideer("TxtMinPlayers");
-            //foutmeldingen += Valideer("TxtMaxPlayers");
-            //foutmeldingen += Valideer("TxtMinAge");
-            //foutmeldingen += Valideer("TxtMinPlaytime");
-            //foutmeldingen += Valideer("TxtMaxPlaytime");
-
-            //if (string.IsNullOrWhiteSpace(foutmeldingen))
-            //{
-            //    Boardgame boardgameToAdd = new Boardgame();
-            //    //Publisher??
-            //    boardgameToAdd.Titel = TxtTitle;
-            //    boardgameToAdd.MinNumberOfPlayers = int.Parse(TxtMinPlayers);
-            //    //haal person id 
-
-            //    //(samen met boardgame id nieuwe Owner maken) van opgehaalde person id --> er is nog geen boardgame id?
-
-            //    //haal categorie id 
-
-            //    //(samen met boardgame id niewe Boardgame_category maken) van opgehaalde categorie id --> er is nog geen boardgame id?  
-            //}
-            //else
-            //{
-            //    MessageBox.Show(foutmeldingen);
-            //}
-
-
-
-            ////datagrid toont alle spellen van deze owner_id
-        }
+        
 
         
 

@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+         xmlns:cal="http://www.caliburnproject.org"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -17,76 +18,90 @@
         
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
         Title="BoardgameView" Height="450" Width="800">
-    <Grid>
-        <GroupBox
-            Header="Voeg een spel toe bij een lid"
+
+    <GroupBox
+            Header="Voeg een spel toe aan de database"
             Margin="5">
-            <TextBlock>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                    </Grid.RowDefinitions>
-                    
-             <StackPanel Grid.Row="0" Orientation="Horizontal" >
-                <Label Content="Selecteer een eigenaar voor het spel :" VerticalAlignment="Center"/>
-                 
-                <ComboBox   x:Name="Persons" ItemsSource="{Binding Persons}" DisplayMemberPath="Fullname" SelectedItem="{Binding SelectedPerson}" 
-                            materialDesign:HintAssist.Hint="Ledenlijst" Margin="5" VerticalAlignment="Bottom"
-                            Width="180" Grid.Row="1">
-                </ComboBox>
-             </StackPanel>
-             <TextBox Grid.Row="1" HorizontalAlignment="Left" 
-                      x:Name="TxtTitle" Width="400" Margin="5" 
+        <TextBlock>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="450"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="0" >
+                <TextBox HorizontalAlignment="Left" Width="435"
+                      x:Name="TxtTitle" Text="{Binding TxtTitle}"  Height="auto" Margin="5,5,0,5" 
                       materialDesign:HintAssist.Hint="Titel" 
-                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-              /> 
-            
-            <ComboBox Grid.Row="3" x:Name="Publishers" ItemsSource="{Binding Publishers}" DisplayMemberPath="Publisher_name" SelectedItem="{Binding SelectedPublisher}" 
-                      materialDesign:HintAssist.Hint="Publisher" Margin="10" Width="auto" >
-            </ComboBox>
-                    
-            <StackPanel Grid.Row="2" Orientation="Horizontal" >
+                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
 
-            <materialDesign:PackIcon Kind="UsersGroup" Margin="5 0 5 5" VerticalAlignment="Bottom"/>
-            <TextBox x:Name="TxtMinPlayers" Width="30" materialDesign:HintAssist.Hint="min" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-            <Label Content="-" VerticalAlignment="Bottom"/>
-            <TextBox x:Name="TxtMaxPlayers" Width="30" materialDesign:HintAssist.Hint="max" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-            <materialDesign:PackIcon Kind="ProgressClock" VerticalAlignment="Bottom" Margin="20 0 5 5"/>
-            <TextBox x:Name="TxtMinPlaytime" Width="30" materialDesign:HintAssist.Hint="min" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-            <Label Content="-" VerticalAlignment="Bottom"/>
-            <TextBox x:Name="TxtMaxPlaytime" Width="30" materialDesign:HintAssist.Hint="max" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-            <materialDesign:PackIcon Kind="AccountChild" VerticalAlignment="Bottom" Margin="20 0 5 5"/>
-            <TextBox x:Name="TxtMinAge" Width="40" materialDesign:HintAssist.Hint="leeftijd" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-            <Label Content="+" VerticalAlignment="Bottom" />
-            <materialDesign:PackIcon Kind="Baby" VerticalAlignment="Bottom" Margin="20 0 5 5"/>
-            <ToggleButton x:Name="SmallParts" Margin="5" VerticalAlignment="Bottom" Style="{StaticResource MaterialDesignSwitchAccentToggleButton}" ToolTip="bevat GEEN kleine onderdelen" IsChecked="False"/>
-            
-            
-            </StackPanel>
-                    
-            <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="5">
-                
-                <ListBox x:Name="DesignerList" Height="130" Width="200" BorderThickness="2"
-                  SelectionMode="Multiple"
-                  ItemsSource="{Binding Designers}">
-                </ListBox>
-                
-                 <ListBox  x:Name="CategoryList" DisplayMemberPath="Category_name" Height="130" Width="200" BorderThickness="2"
-                  SelectionMode="Multiple"
-                  ItemsSource="{Binding Categories}">
-                </ListBox>
+                <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <materialDesign:PackIcon Kind="UsersGroup" Margin="5 0 5 5" VerticalAlignment="Bottom"/>
+                    <TextBox Text="{Binding TxtMinPlayers}" x:Name="TxtMinPlayers" Width="30" materialDesign:HintAssist.Hint="min" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                    <Label Content="-" VerticalAlignment="Bottom"/>
+                    <TextBox Text="{Binding TxtMaxPlayers}" x:Name="TxtMaxPlayers" Width="30" materialDesign:HintAssist.Hint="max" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                    <materialDesign:PackIcon Kind="ProgressClock" VerticalAlignment="Bottom" Margin="20 0 5 5"/>
+                    <TextBox Text="{Binding TxtMinPlaytime}" x:Name="TxtMinPlaytime" Width="30" materialDesign:HintAssist.Hint="min" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                    <Label Content="-" VerticalAlignment="Bottom"/>
+                    <TextBox Text="{Binding TxtMaxPlaytime}" x:Name="TxtMaxPlaytime" Width="30" materialDesign:HintAssist.Hint="max" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                    <materialDesign:PackIcon Kind="AccountChild" VerticalAlignment="Bottom" Margin="20 0 5 5"/>
+                    <TextBox Text="{Binding TxtMinAge}" x:Name="TxtMinAge" Width="40" materialDesign:HintAssist.Hint="leeftijd" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                    <Label Content="+" VerticalAlignment="Bottom" />
+                    <materialDesign:PackIcon Kind="Baby" VerticalAlignment="Bottom" Margin="20 0 5 5"/>
+                    <ToggleButton x:Name="SmallParts" Margin="5" VerticalAlignment="Bottom" Style="{StaticResource MaterialDesignSwitchAccentToggleButton}" ToolTip="bevat GEEN kleine onderdelen" IsChecked="False"/>
+                </StackPanel>
 
+                <ComboBox x:Name="Publishers" ItemsSource="{Binding Publishers}" DisplayMemberPath="Publisher_name" SelectedItem="{Binding SelectedPublisher}" 
+                      materialDesign:HintAssist.Hint="Publisher" Margin="10" Width="auto" Height="auto">
+                </ComboBox>
+                <StackPanel Orientation="Horizontal" Height="150">
+                
+                     
+                         <DataGrid x:Name="DataGridCategories" 
+                              ItemsSource="{Binding SelectedGameCategories}"
+                              SelectedItem="{Binding SelectedGameCategory}"
+                              Height="auto" Width="320" Margin="5" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Spel categorie:" Binding="{Binding Category_name}" />
+                        </DataGrid.Columns>
+                        </DataGrid>
+                    
+                
+                    <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                    
+                    <Button x:Name="AddCategoryToGame" Width="100" Margin="5"
+                            Content="{materialDesign:PackIcon ArrowLeftBoldOutline}"
+                            ToolTip="Voeg categorie toe aan spel"
+                            cal:Message.Attach="AddCategoryToGame"/>
+                    <Button x:Name="RemoveCategoryFromGame" Width="100" Margin="5"
+                            Content="{materialDesign:PackIcon ArrowRightBoldOutline}"
+                            ToolTip="Verwijder categorie van spel"
+                            cal:Message.Attach="RemoveCategoryFromGame"/>
+                </StackPanel>
+                </StackPanel>
+                <Button x:Name="AddGame" cal:Message.Attach="AddGame" Content="Voeg spel toe" Grid.Row="0"  Margin="5" Height="50" />
             </StackPanel>
-                    <Button x:Name="AddGame" Content="Voeg spel toe" Grid.Row="5"/>
-                </Grid>
-            </TextBlock>
-        </GroupBox>
-        
-        
-    </Grid>
+
+            <StackPanel Grid.Column="1" Orientation="Vertical" Width="300">
+                <Label Content="Selecteer categorie: " Margin="5"/>
+                <ListBox  x:Name="CategoryList" 
+                          DisplayMemberPath="Category_name" Height="300"
+                            ItemsSource="{Binding Categories}" Margin="5"
+                          SelectedItem="{Binding SelectedCategory}"
+                  >
+                 
+                </ListBox>
+            </StackPanel>
+
+            
+        </Grid>
+        </TextBlock>
+    </GroupBox>
+
+
+
 </Window>

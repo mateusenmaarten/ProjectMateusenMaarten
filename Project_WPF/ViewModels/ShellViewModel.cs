@@ -17,7 +17,10 @@ namespace Project_WPF.ViewModels
         {
             wm.ShowWindow(new JsonViewModel(), null, null);
         }
-
+        public void btnOpenBoardgameView()
+        {
+            wm.ShowWindow(new BoardgameViewModel(), null, null);
+        }
         public void btnOpenSearchView()
         {
             wm.ShowWindow(new SearchViewModel(), null, null);

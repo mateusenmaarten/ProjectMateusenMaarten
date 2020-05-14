@@ -5,19 +5,51 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace Project_WPF.ViewModels
 {
     public class BoardgameViewModel : Screen
     {
-        List<Person> PersonList = new List<Person>();
+        
         List<Publisher> PublisherList = new List<Publisher>();
         List<Category> CategoryList = new List<Category>();
-        private BindableCollection<Person> _persons;
-        private BindableCollection<Publisher> _publishers;
+
+        private BindableCollection<Publisher> _publishers = new BindableCollection<Publisher>();
         private BindableCollection<Category> _categories;
-        private Person _selectedPerson;
         private Publisher _selectedPublisher;
+        private Category _selectedCategory;
+        private Category _selectedGameCategory;
+        private BindableCollection<Category> _selectedGameCategories = new BindableCollection<Category>();
+        private BindableCollection<Category> _datagridCategories = new BindableCollection<Category>();
+
+        public BindableCollection<Category> DataGridCategories
+        {
+            get { return _datagridCategories; }
+            set { _datagridCategories  = value; NotifyOfPropertyChange(() => DataGridCategories); }
+        }
+
+        public BindableCollection<Category> SelectedGameCategories
+        {
+            get { return _selectedGameCategories; }
+            set { _selectedGameCategories = value; NotifyOfPropertyChange(() => SelectedGameCategories); }
+        }
+
+
+        public  Category SelectedGameCategory
+        {
+            get { return _selectedGameCategory; }
+            set { _selectedGameCategory = value; }
+        }
+
+        private List<int> _selectedCategoryIDs = new List<int>();
+
+        public List<int> SelectedCategoryIDs
+        {
+            get { return _selectedCategoryIDs; }
+            set { _selectedCategoryIDs = value; }
+        }
 
         public Publisher SelectedPublisher
         {
@@ -29,16 +61,6 @@ namespace Project_WPF.ViewModels
             get { return _publishers; }
             set { _publishers = value; NotifyOfPropertyChange(() => Publishers); }
         }
-        public Person SelectedPerson
-        {
-            get { return _selectedPerson; }
-            set { _selectedPerson = value; NotifyOfPropertyChange(() => SelectedPerson); }
-        }
-        public BindableCollection<Person> Persons
-        {
-            get { return _persons; }
-            set { _persons = value; NotifyOfPropertyChange(() => Persons); }
-        }
         public BindableCollection<Category> Categories
         {
             get { return _categories; }
@@ -46,53 +68,187 @@ namespace Project_WPF.ViewModels
         }
         public BoardgameViewModel()
         {
-            PersonList = DatabaseOperations.GetPeople();
-            Persons = new BindableCollection<Person>(PersonList);
-
             PublisherList = DatabaseOperations.GetPublishers();
             Publishers = new BindableCollection<Publisher>(PublisherList);
 
             CategoryList = DatabaseOperations.GetCategories();
             Categories = new BindableCollection<Category>(CategoryList);
+
+        }
+        public Category SelectedCategory
+        {
+            get { return _selectedCategory; }
+            set { _selectedCategory = value; NotifyOfPropertyChange(() => SelectedCategory); }
+        }
+        
+
+        private string _txtTitle;
+        private string _txtMinPlayers;
+        private string _txtMaxPlayers;
+        private string _txtMinPlaytime;
+        private string _txtMaxPlaytime;
+        private string _txtMinAge;
+        private bool _smallParts;
+
+        //Boardgame
+        public bool SmallParts
+        {
+            get { return _smallParts; }
+            set { _smallParts = value; NotifyOfPropertyChange(()=> SmallParts); }
+        }
+        public string TxtMinAge
+        {
+            get { return _txtMinAge; }
+            set { _txtMinAge = value; NotifyOfPropertyChange(() => TxtMinAge); }
+        }
+        public string TxtMaxPlaytime
+        {
+            get { return _txtMaxPlaytime; }
+            set { _txtMaxPlaytime = value; NotifyOfPropertyChange(() => TxtMaxPlaytime); }
+        }
+        public string TxtMinPlaytime
+        {
+            get { return _txtMinPlaytime; }
+            set { _txtMinPlaytime = value; NotifyOfPropertyChange(() => TxtMinPlaytime); }
+        }
+        public string TxtMaxPlayers
+        {
+            get { return _txtMaxPlayers; }
+            set { _txtMaxPlayers = value; NotifyOfPropertyChange(() => TxtMaxPlayers); }
+        }
+        public string TxtMinPlayers
+        {
+            get { return _txtMinPlayers; }
+            set { _txtMinPlayers = value; NotifyOfPropertyChange(() => TxtMinPlayers); }
+        }
+        
+        public string TxtTitle
+        {
+            get { return _txtTitle; }
+            set { _txtTitle = value; NotifyOfPropertyChange(() => TxtTitle); }
         }
 
 
+        public void AddCategoryToGame()
+        {
+            string foutmeldingen = Valideer("SelectedCategory");
+            if (string.IsNullOrWhiteSpace(foutmeldingen))
+            {
 
-        //private string Valideer(string columnName)
-        //{
-        //    if (columnName == "SelectedPerson" && SelectedPerson == null)
-        //    {
-        //        return $"Selecteer een lid om eigenaar te maken" + Environment.NewLine;
-        //    }
-        //    if (columnName == "SelectedCategory" && SelectedCategory == null)
-        //    {
-        //        return $"Selecteer een categorie" + Environment.NewLine;
-        //    }
-        //    if (columnName == "TxtMinPlayers" && !int.TryParse(TxtMinPlayers, out int txtMinPlayer))
-        //    {
-        //        return $"Minimum aantal spelers moet een numerieke waarde zijn" + Environment.NewLine;
-        //    }
-        //    if (columnName == "TxtMaxPlayers" && !int.TryParse(TxtMaxPlayers, out int txtMaxPlayer))
-        //    {
-        //        return $"Maximum aantal spelers moet een numerieke waarde zijn" + Environment.NewLine;
-        //    }
-        //    if (columnName == "TxtMinAge" && !int.TryParse(TxtMinAge, out int txtMinAge))
-        //    {
-        //        return $"Minimum leeftijd moet een numerieke waarde zijn" + Environment.NewLine;
-        //    }
-        //    //if (columnName == "TxtMaxAge" && !int.TryParse(TxtMaxAge, out int txtMaxAge))
-        //    //{
-        //    //    return $"Maximum leeftijd moet een numerieke waarde zijn" + Environment.NewLine;
-        //    //}
-        //    if (columnName == "TxtMinPlaytime" && !int.TryParse(TxtMinPlaytime, out int txtMinPlaytime))
-        //    {
-        //        return $"Minimum speelduur moet een numerieke waarde zijn" + Environment.NewLine;
-        //    }
-        //    if (columnName == "TxtMaxPlaytime" && !int.TryParse(TxtMaxPlaytime, out int txtMaxPlaytime))
-        //    {
-        //        return $"Maximum speelduur moet een numerieke waarde zijn" + Environment.NewLine;
-        //    }
-        //    return "";
-        //}
+                if (!SelectedGameCategories.Contains(SelectedCategory))
+                {
+                    SelectedGameCategories.Add(SelectedCategory);
+                    
+                }
+                else
+                {
+                    MessageBox.Show($"Deze categorie is al toegevoegd");
+                }
+
+            }
+            else
+            {
+                MessageBox.Show(foutmeldingen);
+            }
+        }
+
+        public void RemoveCategoryFromGame()
+        {
+            if (SelectedGameCategory == null)
+            {
+                MessageBox.Show($"Selecteer een categorie om te verwijderen");
+            }
+            else
+            {
+                Category cat = SelectedGameCategory as Category;
+                SelectedGameCategories.Remove(cat);
+                
+            }
+        }
+        public void AddGame()
+        {
+            
+            string foutmeldingen = Valideer("TxtMinPlayers");
+            foutmeldingen += Valideer("TxtMaxPlayers");
+            foutmeldingen += Valideer("TxtMinAge");
+            foutmeldingen += Valideer("TxtMinPlaytime");
+            foutmeldingen += Valideer("TxtMaxPlaytime");
+            foutmeldingen += Valideer("SelectedPublisher");
+
+            if (string.IsNullOrWhiteSpace(foutmeldingen))
+            {
+                Boardgame boardgameToAdd = new Boardgame();
+                boardgameToAdd.Titel = TxtTitle;
+                boardgameToAdd.MinNumberOfPlayers = int.Parse(TxtMinPlayers);
+                boardgameToAdd.MaxNumberOfPlayers = int.Parse(TxtMaxPlayers);
+                boardgameToAdd.MinPlayingTime = int.Parse(TxtMinPlaytime);
+                boardgameToAdd.MaxPlayingTime = int.Parse(TxtMaxPlaytime);
+                boardgameToAdd.MinAgeToPlay = int.Parse(TxtMinAge);
+                boardgameToAdd.ContainsSmallParts = SmallParts;
+                boardgameToAdd.Publisher_id = SelectedPublisher.Publisher_id;
+
+                if (boardgameToAdd.IsGeldig())
+                {
+                    
+                    if (SelectedGameCategories.Count != 0)
+                    {
+                        DatabaseOperations.AddBoardgame(boardgameToAdd);
+                        foreach (Category cat in SelectedGameCategories)
+                        {
+                            SelectedCategoryIDs.Add(cat.Category_id);
+                        }
+                        DatabaseOperations.AddCategoryToBoardgame(boardgameToAdd.Boardgame_id, SelectedCategoryIDs);
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Selecteer minstens 1 categorie");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show(boardgameToAdd.Error);
+                }
+
+            }
+            else
+            {
+                MessageBox.Show(foutmeldingen);
+            }
+
+        }
+
+        private string Valideer(string columnName)
+        {
+            
+            if (columnName == "TxtMinPlayers" && !int.TryParse(TxtMinPlayers, out int txtMinPlayer))
+            {
+                return $"Minimum aantal spelers moet een numerieke waarde zijn" + Environment.NewLine;
+            }
+            if (columnName == "TxtMaxPlayers" && !int.TryParse(TxtMaxPlayers, out int txtMaxPlayer))
+            {
+                return $"Maximum aantal spelers moet een numerieke waarde zijn" + Environment.NewLine;
+            }
+            if (columnName == "TxtMinAge" && !int.TryParse(TxtMinAge, out int txtMinAge))
+            {
+                return $"Minimum leeftijd moet een numerieke waarde zijn" + Environment.NewLine;
+            }
+            if (columnName == "TxtMinPlaytime" && !int.TryParse(TxtMinPlaytime, out int txtMinPlaytime))
+            {
+                return $"Minimum speelduur moet een numerieke waarde zijn" + Environment.NewLine;
+            }
+            if (columnName == "TxtMaxPlaytime" && !int.TryParse(TxtMaxPlaytime, out int txtMaxPlaytime))
+            {
+                return $"Maximum speelduur moet een numerieke waarde zijn" + Environment.NewLine;
+            }
+            if (columnName == "SelectedPublisher" && SelectedPublisher == null)
+            {
+                return $"Selecteer een publisher" + Environment.NewLine;
+            }
+            if (columnName == "SelectedCategory" && SelectedCategory == null)
+            {
+                return $"Selecteer een categie" + Environment.NewLine;
+            }
+            return "";
+        }
     }
 }

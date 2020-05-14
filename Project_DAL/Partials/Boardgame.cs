@@ -49,18 +49,18 @@ namespace Project_DAL
                 {
                     return $"minimum speeltijd moet langer zijn dan 0 minuten" + Environment.NewLine;
                 }
-                if (columnName == "MaxPlayingTime" && MaxPlayingTime <= 0)
+                if (columnName == "MaxPlayingTime" && MaxPlayingTime <= 0 || MaxPlayingTime < MinPlayingTime)
                 {
-                    return $"maximum speeltijd moet langer zijn dan 0 minuten" + Environment.NewLine;
+                    return $"maximum speeltijd moet langer zijn dan 0 minuten en langer dan de minimum speeltijd" + Environment.NewLine;
                 }
                 if (columnName == "MinAgeToPlay" && MinAgeToPlay <= 0)
                 {
                     return $"minimum leeftijd moet groter zijn dan 0" + Environment.NewLine;
                 }
-                if (columnName == "MaxAgeToPlay" && MaxAgeToPlay <= 0)
-                {
-                    return $"maximum leeftijd moet groter zijn dan 0" + Environment.NewLine;
-                }
+                //if (columnName == "MaxAgeToPlay" && MaxAgeToPlay <= 0)
+                //{
+                //    return $"maximum leeftijd moet groter zijn dan 0" + Environment.NewLine;
+                //}
                 return "";
             }
         }

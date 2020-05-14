@@ -75,6 +75,33 @@ namespace Project_DAL
             }
             
         }
+
+        public static int AddCategoryToBoardgame(int bgID,List<int> catIDs)
+        {
+            Boardgame_Category bc;
+            
+            try
+            {
+                using (GameClubEntities gameClubEntities = new GameClubEntities())
+                {
+                    foreach (int catID in catIDs)
+                    {
+                        bc = new Boardgame_Category();
+                        bc.Boardgame_id = bgID;
+                        bc.Category_id = catID;
+                        gameClubEntities.Boardgame_Category.Add(bc);
+                    }
+                    
+                    return gameClubEntities.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                FileOperations.FoutLoggen(ex);
+                return 0;
+            }
+        }
+
         public static int AddPerson(Person person, ref int personID)
         {
             personID = 0;
@@ -93,6 +120,9 @@ namespace Project_DAL
                 return 0;
             }
         }
+        
+        
+        
 
         public static int EditPerson(Person person)
         {
