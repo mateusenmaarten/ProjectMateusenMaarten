@@ -11,6 +11,7 @@ namespace Project_DAL
     public partial class Boardgame : BaseClass
     {
 
+
         public override string this[string columnName]
         {
             get
@@ -74,5 +75,15 @@ namespace Project_DAL
         [JsonProperty("playingTime")]
         public int? JsonMinPlayingTime { get => MinPlayingTime; set => MinPlayingTime = value; }
 
+        public override bool Equals(object obj)
+        {
+            return obj is Boardgame boardgame &&
+                   Titel == boardgame.Titel;
+        }
+
+        public override int GetHashCode()
+        {
+            return 2021108495 + EqualityComparer<string>.Default.GetHashCode(Titel);
+        }
     }
 }

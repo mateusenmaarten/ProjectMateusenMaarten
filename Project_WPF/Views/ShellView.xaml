@@ -26,7 +26,7 @@
         </Grid.RowDefinitions>
         <Button x:Name="btnOpenJsonView" Content="JSON" Grid.Row="0" Margin="5" Height="auto" />
         <Button x:Name="btnOpenBoardgameView" Content="Voeg een spel toe aan de database" Grid.Row="1" Margin="5" Height="auto" />
-        <Button x:Name="btnOpenMemberView" Content="LEDEN" Grid.Row="2" Margin="5" Height="auto" />
+        <Button x:Name="btnOpenMemberView" Content="PERSONEN" Grid.Row="2" Margin="5" Height="auto" />
         <Button x:Name="btnOpenSessionView" Content="SPELSESSIE" Grid.Row="3" Margin="5" Height="auto" />
         <Button x:Name="btnOpenSearchView" Content="ZOEKEN" Grid.Row="4" Margin="5" Height="auto" />
     </Grid>

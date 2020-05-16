@@ -102,15 +102,15 @@ namespace Project_DAL
             }
         }
 
-        public static int AddPerson(Person person, ref int personID)
+        public static int AddPerson(Person person)
         {
-            personID = 0;
+            
             try
             {
                 using (GameClubEntities gameClubEntities = new GameClubEntities())
                 {
                     gameClubEntities.People.Add(person);
-                    personID = person.Person_id;
+                    
                     return gameClubEntities.SaveChanges();
                 }
             }
@@ -179,6 +179,58 @@ namespace Project_DAL
             {
                 FileOperations.FoutLoggen(ex);
                 return 0;
+            }
+        }
+
+        public static int AddOwnerToDB(Owner owner)
+        {
+            try
+            {
+                using (GameClubEntities gameClubEntities = new GameClubEntities())
+                {
+                    gameClubEntities.Owners.Add(owner);
+                    return gameClubEntities.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                FileOperations.FoutLoggen(ex);
+                return 0;
+            }
+        }
+
+        public static int AddDesignerToDB(Designer designer)
+        {
+            try
+            {
+                using (GameClubEntities gameClubEntities = new GameClubEntities())
+                {
+                    gameClubEntities.Designers.Add(designer);
+                    return gameClubEntities.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                FileOperations.FoutLoggen(ex);
+                return 0;
+            }
+        }
+
+        public static List<Owner> GetOwners()
+        {
+            using (GameClubEntities entities = new GameClubEntities())
+            {
+                var query = entities.Owners;
+                return query.ToList();
+            }
+        }
+
+        public static List<Designer> GetDesigners()
+        {
+            using (GameClubEntities entities = new GameClubEntities())
+            {
+                var query = entities.Designers;
+                return query.ToList();
             }
         }
     }

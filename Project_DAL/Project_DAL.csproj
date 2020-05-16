@@ -90,6 +90,8 @@
       <DependentUpon>GameClubModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Partials\Boardgame.cs" />
+    <Compile Include="Partials\Designer.cs" />
+    <Compile Include="Partials\Owner.cs" />
     <Compile Include="Partials\Person.cs" />
     <Compile Include="Person.cs">
       <DependentUpon>GameClubModel.tt</DependentUpon>

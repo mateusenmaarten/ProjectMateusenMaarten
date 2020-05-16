@@ -16,6 +16,11 @@ namespace Project_DAL
             get { return $"{Firstname} {Lastname}"; }
         }
 
+        public override string ToString()
+        {
+            return Fullname;
+        }
+
         public int PersonID { get; set; }
 
         public override string this[string columnName]
@@ -39,6 +44,15 @@ namespace Project_DAL
 
         }
 
-        
+        public override bool Equals(object obj)
+        {
+            return obj is Person person &&
+                   Fullname == person.Fullname;
+        }
+
+        public override int GetHashCode()
+        {
+            return 558414575 + EqualityComparer<string>.Default.GetHashCode(Fullname);
+        }
     }
 }
