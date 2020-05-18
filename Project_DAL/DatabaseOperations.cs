@@ -21,12 +21,33 @@ namespace Project_DAL
             }
         }
 
+        public static Person GetPersonFromPersonID(int personID)
+        {
+            using (GameClubEntities entities = new GameClubEntities())
+            {
+                var query = entities.People
+                .Where(x => x.Person_id == personID);
+                
+                return query.SingleOrDefault();
+            }
+        }
+
         public static List<Boardgame> GetBoardgames()
         {
             using (GameClubEntities entities = new GameClubEntities())
             {
                 var query = entities.Boardgames;
                 return query.ToList();
+            }
+        }
+
+        public static Boardgame GetBoardgameFromBoardgameID(int boardgameID)
+        {
+            using (GameClubEntities entities = new GameClubEntities())
+            {
+                var query = entities.Boardgames
+                    .Where(x => x.Boardgame_id == boardgameID);
+                return query.SingleOrDefault();
             }
         }
 

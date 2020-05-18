@@ -87,10 +87,15 @@
             <GroupBox  Header="Toon de collectie van een eigenaar" Margin="5">
                 <StackPanel Orientation="Vertical">
                     <ComboBox x:Name="Owners"
-                              ItemsSource="{Binding Owners}" DisplayMemberPath="{Binding Person}"
+                              ItemsSource="{Binding PersonsWithBoardgames}" DisplayMemberPath="{Binding Fullname}"
                               SelectedItem="{Binding SelectedOwner}" materialDesign:HintAssist.Hint="Selecteer een eigenaar om zijn colectie weer te geven" />
-                    <DataGrid x:Name="OwnerDatagrid"  Margin="5" Height="173">
-
+                    <DataGrid x:Name="OwnerDatagrid" ItemsSource="BoardgamesFromOwner"
+                              AutoGenerateColumns="False"  
+                              Margin="5" 
+                              Height="173">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Titel}" Header="Titel"/>
+                        </DataGrid.Columns>
                     </DataGrid>
                     <Button x:Name="DeleteGame" Content="Spel verwijderen uit collectie" Margin="5" Width="auto"  />
                 </StackPanel>
