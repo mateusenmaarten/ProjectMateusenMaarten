@@ -73,6 +73,7 @@ namespace Project_DAL
             using (GameClubEntities gameClubEntities = new GameClubEntities())
             {
                 var query = gameClubEntities.Boardgames
+                    .Include(y => y.Publisher)
                     .Where(x => x.Boardgame_Category.Any(y => y.Category_id == categoryID))
                     .Where(z => z.MinNumberOfPlayers <= numberOfPlayers && z.MaxNumberOfPlayers >= numberOfPlayers);
                 return query.ToList();
@@ -169,6 +170,23 @@ namespace Project_DAL
                 using (GameClubEntities gameClubEntities = new GameClubEntities())
                 {
                     gameClubEntities.Entry(person).State = EntityState.Modified;
+                    return gameClubEntities.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                FileOperations.FoutLoggen(ex);
+                return 0;
+            }
+        }
+
+        public static int DeletePerson(Person person)
+        {
+            try
+            {
+                using (GameClubEntities gameClubEntities = new GameClubEntities())
+                {
+                    gameClubEntities.Entry(person).State = EntityState.Deleted;
                     return gameClubEntities.SaveChanges();
                 }
             }

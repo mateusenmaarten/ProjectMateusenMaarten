@@ -210,8 +210,6 @@ namespace Project_WPF.ViewModels
                 {
                     MessageBox.Show($"{personToAdd.Fullname} is al toegevoegd aan de database");
                 }
-               
-                
             }
             else
             {
@@ -228,6 +226,29 @@ namespace Project_WPF.ViewModels
                 MessageBox.Show($"Selecteer een persoon aub");
             }
             
+        }
+
+        public void DeletePerson()
+        {
+            if (SelectedPerson != null)
+            {
+                Person person = SelectedPerson as Person;
+                int personID = person.Person_id;
+                int ok = DatabaseOperations.DeletePerson(person);
+                if (ok > 0)
+                {
+                    MessageBox.Show($"{person.Fullname} is succesvol verwijderd");
+                    ReloadLists();
+                }
+                else
+                {
+                    MessageBox.Show($"Kan {person.Fullname} niet verwijderen!");
+                }
+            }
+            else
+            {
+                MessageBox.Show($"Selecteer een persoon om te verwijderen");
+            }
         }
 
         public void CommitMember() 
@@ -323,7 +344,6 @@ namespace Project_WPF.ViewModels
                 {
                     MessageBox.Show($"{SelectedPerson.Fullname} is reeds toegevoegd als designer van {SelectedGame.Titel}");
                 }
-               
             }
             else
             {

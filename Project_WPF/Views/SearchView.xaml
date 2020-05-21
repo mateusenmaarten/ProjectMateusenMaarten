@@ -61,7 +61,8 @@
                     <DataGridTextColumn Header="Titel :" Binding="{Binding Titel}" />
                     <DataGridTextColumn Header="min spelers :" Binding="{Binding MinNumberOfPlayers}" />
                     <DataGridTextColumn Header="max spelers :" Binding="{Binding MaxNumberOfPlayers}" />
-                    <DataGridTextColumn Header="minimum tijdsduur :" Binding="{Binding MinPlayingTime}" />
+                    <DataGridTextColumn Header="min tijdsduur :" Binding="{Binding MinPlayingTime}" />
+                    <DataGridTextColumn Header="Publisher :" Binding="{Binding Publisher.Publisher_name}" />
                 </DataGrid.Columns>
             </DataGrid>
         </GroupBox>

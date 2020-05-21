@@ -30,7 +30,6 @@
         </Grid.RowDefinitions>
         <!--LedenLijst-->
 
-
         <!--Collectie-->
         <StackPanel Grid.Column="1" Orientation="Vertical">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="left" Margin="5">
@@ -62,25 +61,25 @@
                 </GroupBox>
                 <materialDesign:PackIcon Kind="ArrowRightThick" Height="30" Width="30" VerticalAlignment="Center" Margin="5"/>
                 <GroupBox
-                    Header="Creër eigenaar"
+                    Header="+/- Eigenaar"
                     Style="{DynamicResource MaterialDesignGroupBox}"
                     Margin="0 0 5 0" BorderThickness="2"
                     materialDesign:ColorZoneAssist.Mode="Accent" Width="110">
                     <TextBlock HorizontalAlignment="Center">
                         <Button x:Name="AddOwner" cal:Message.Attach="AddOwner"
                             Content="{materialDesign:PackIcon PersonAddOutline}"
-                            ToolTip="Icon" />
+                            ToolTip="Maak een persoon eigenaar van een bordspel" />
                     </TextBlock>
                 </GroupBox>
                 <GroupBox
-                    Header="Creër designer"
+                    Header="+/- Designer"
                     Style="{DynamicResource MaterialDesignGroupBox}"
                     Margin="0 0 0 0" BorderThickness="2"
                     materialDesign:ColorZoneAssist.Mode="Accent" Width="110">
                     <TextBlock HorizontalAlignment="Center">
                         <Button x:Name="AddDesigner" cal:Message.Attach="AddDesigner"
                             Content="{materialDesign:PackIcon PersonAddOutline}"
-                            ToolTip="Icon" />
+                            ToolTip="Maak een persoon designer van een bordspel" />
                     </TextBlock>
                 </GroupBox>
             </StackPanel>
@@ -147,20 +146,24 @@
                             Margin="0 5 0 20">
 
                         </TextBox>
+                        
                         <Button  x:Name="AddNewPerson" cal:Message.Attach="AddNewPerson" 
                             Style="{StaticResource MaterialDesignRaisedButton}"
-                            Width="auto"
+                            Width="150"
                             Margin="5"
-                            ToolTip="Voeg een nieuwe persoon toe">
-                            persoon toevoegen
-                        </Button>
+                            ToolTip="Voeg een nieuwe persoon toe"
+                            Content="{materialDesign:PackIcon AccountPlus}"/>
 
                         <Button x:Name="EditExistingPerson"  cal:Message.Attach="EditExistingPerson"
-                                    Command="{x:Static materialDesign:Flipper.FlipCommand}"
-                                    Margin="5" Width="auto"
-                                    Content="{materialDesign:PackIcon AccountEditOutline}"
-                                    ToolTip="Bewerk een bestaand persoon" />
-
+                             Command="{x:Static materialDesign:Flipper.FlipCommand}"
+                             Margin="5" Width="auto"
+                             Content="{materialDesign:PackIcon AccountEditOutline}"
+                             ToolTip="Bewerk een persoon" />
+                        
+                        <Button x:Name="DeletePerson"  cal:Message.Attach="DeletePerson"
+                             Margin="5" Width="auto"
+                             Content="{materialDesign:PackIcon AccountRemoveOutline}"
+                             ToolTip="Verwijder een persoon" />
                     </StackPanel>
                 </Grid>
             </materialDesign:Flipper.FrontContent>
@@ -188,7 +191,7 @@
                             <TextBlock
                                 Margin="8 0 0 0"
                                 VerticalAlignment="Center">
-                                Gegevens
+                                Wijzig persoon gegevens
                             </TextBlock>
                         </StackPanel>
                     </materialDesign:ColorZone>
