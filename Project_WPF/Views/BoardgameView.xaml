@@ -17,11 +17,11 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
-        Title="BoardgameView" Height="450" Width="800">
+        Title="Spellen" Height="450" Width="800" Icon="games-icon-png-17.jpg">
 
     <GroupBox
             Header="Voeg een spel toe aan de database"
-            Margin="5">
+            Margin="0" BorderThickness="5">
         <TextBlock>
         <Grid>
             <Grid.ColumnDefinitions>

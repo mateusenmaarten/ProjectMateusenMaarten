@@ -41,6 +41,23 @@ namespace Project_DAL
             }
         }
 
+        public static List<int> GetBoardgameIDsFromPerson(int personID)
+        {
+            using (GameClubEntities gameClubEntities = new GameClubEntities())
+            {
+                List<int> boardgameIDs = new List<int>();
+                var query = gameClubEntities.Owners;
+                foreach (Owner owner in query)
+                {
+                    if (owner.Person_id == personID)
+                    {
+                        boardgameIDs.Add(owner.Boardgame_id);
+                    }
+                }
+                return boardgameIDs;
+            }
+        }
+
         public static Boardgame GetBoardgameFromBoardgameID(int boardgameID)
         {
             using (GameClubEntities entities = new GameClubEntities())

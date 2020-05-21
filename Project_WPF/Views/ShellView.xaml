@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Project_WPF.Views"
+        xmlns:local="clr-namespace:Project_WPF.Views" 
         mc:Ignorable="d" 
         
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -15,7 +15,7 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
-        Title="ShellView" Height="450" Width="800">
+        Title="Hoofdmenu" Height="450" Width="800" Icon="games-icon-png-17.jpg">
     <Grid VerticalAlignment="Center">
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>

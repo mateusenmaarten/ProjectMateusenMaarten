@@ -15,7 +15,7 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
-        Title="SessionView" Height="450" Width="800">
+        Title="Sessie" Height="450" Width="800" Icon="games-icon-png-17.jpg">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -27,8 +27,8 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <GroupBox Grid.ColumnSpan="2"
-  Header="Selecteer wie deelneemt aan de sessie"
-  Margin="16">
+  Header="1. Selecteer wie deelneemt aan de sessie"
+  Margin="5 5 5 0" BorderThickness="5">
             <StackPanel Orientation="Horizontal">
                 <ComboBox x:Name="Players" SelectedItem="SelectedPlayer" DisplayMemberPath="Fullname"
                           Width="150" VerticalAlignment="Top"
@@ -46,8 +46,8 @@
         </GroupBox>
 
         <GroupBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"
-  Header="Selecteer een spel en de datum van de sessie"
-  Margin="16">
+  Header="2. Selecteer een spel en de datum van de sessie"
+  Margin="5" BorderThickness="5">
             <StackPanel Orientation="Horizontal">
                 <ComboBox x:Name="Boardgames" SelectedItem="SelectedBoardgame" DisplayMemberPath="Titel"
                     Width="150"
@@ -60,9 +60,9 @@
             </StackPanel>
         </GroupBox>
         <GroupBox Grid.Column="2" Grid.RowSpan="2"
-  Header="Samenvatting"
+  Header="Samenvatting" BorderThickness="5"
   Style="{DynamicResource MaterialDesignGroupBox}"
-  Margin="16"
+  Margin="0 5 5 5"
   materialDesign:ColorZoneAssist.Mode="Accent">
             <Grid>
                 <Grid.RowDefinitions>

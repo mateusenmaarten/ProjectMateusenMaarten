@@ -15,7 +15,9 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
-        Title="JsonView" Height="450" Width="800">
+        Title="Json file inlezen" Height="450" Width="800" Icon="games-icon-png-17.jpg">
+
+    <GroupBox Header="Lees gegevens in met behulp van JSON" Margin="0" BorderThickness="5" >
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -36,4 +38,5 @@
         
         <TextBlock x:Name="JsonStringText" Grid.Row="1" Grid.ColumnSpan="2" Margin="10"/>
     </Grid>
+    </GroupBox>
 </Window>

@@ -22,12 +22,20 @@ namespace Project_WPF.ViewModels
 
         private Person _selectedPerson = null;
         private Boardgame _selectedGame = null;
-        private Owner _selectedOwner = null;
+        private Person _selectedOwner = null;
 
-        public Owner SelectedOwner
+        public Person SelectedOwner
         {
             get { return _selectedOwner; }
-            set { _selectedOwner = value; NotifyOfPropertyChange(() => SelectedOwner); }
+            set 
+            {
+                _selectedOwner = value;
+
+                BoardgamesFromOwner = new BindableCollection<Boardgame>();
+                BoardgamesFromOwner = GetBoardgamesFromOwner(GetBoardgameIDsFromSelectedOwner(SelectedOwner.Person_id));
+
+                NotifyOfPropertyChange(() => SelectedOwner); 
+            }
         }
 
 
@@ -40,6 +48,20 @@ namespace Project_WPF.ViewModels
         private BindableCollection<Boardgame> _boardgames;
         private BindableCollection<Owner> _owners;
         private BindableCollection<Person> _personsWithBoardgames = new BindableCollection<Person>();
+        private BindableCollection<Boardgame> _boardgamesFromOwner;
+
+        public BindableCollection<Boardgame> BoardgamesFromOwner
+        {
+            get 
+            {
+                    return _boardgamesFromOwner;                
+            }
+            set 
+            {
+                _boardgamesFromOwner = value;
+                NotifyOfPropertyChange(() => BoardgamesFromOwner); 
+            }
+        }
 
         public BindableCollection<Person> PersonsWithBoardgames
         {
@@ -97,6 +119,7 @@ namespace Project_WPF.ViewModels
             set
             {
                 this._selectedPerson = value;
+               
                 NotifyOfPropertyChange(() => SelectedPerson);
             }
         }
@@ -161,6 +184,8 @@ namespace Project_WPF.ViewModels
             PersonsWithBoardgames = new BindableCollection<Person>();
             //Ophalen van Owners => zijn personID's die voorkomen in Owners (geen dubbele!)
             PersonsWithBoardgames = GetPersonsWithBoardgames(GetPersonIDsFromOwner(Owners));
+
+            BoardgamesFromOwner = new BindableCollection<Boardgame>();
         }
 
         public void AddNewPerson()
@@ -336,9 +361,25 @@ namespace Project_WPF.ViewModels
             return PersonsWithBoardgames;
         }
         
+        public List<int> GetBoardgameIDsFromSelectedOwner(int personID)
+        {
+            //van deze geselcteerde persoon/owner geven we alle boardgameIDs die bij deze personID horen
+            List<int> boardgameIDs = new List<int>();
+            boardgameIDs = DatabaseOperations.GetBoardgameIDsFromPerson(personID);
+            return boardgameIDs;
+        }
         
-        //van deze geselcteerde persoon/owner geven we alle boardgameIDs die bij deze personID horen
-        //van deze boardgameID's tonen we de titels in het datagrid
+        public BindableCollection<Boardgame> GetBoardgamesFromOwner(List<int> boardgameIDs)
+        {
+            
+            foreach (int boardgameID in boardgameIDs)
+            {
+                BoardgamesFromOwner.Add(DatabaseOperations.GetBoardgameFromBoardgameID(boardgameID));
+            }
+            //van deze boardgameID's tonen we de titels in het datagrid
+            return BoardgamesFromOwner;
+        }
+
 
     }
 }
