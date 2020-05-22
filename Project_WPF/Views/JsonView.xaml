@@ -29,14 +29,21 @@
         </Grid.ColumnDefinitions>
         <StackPanel>
             <Button x:Name="LoadJson" Content="Spellen ophalen uit Json" Margin="10"></Button>
-            <Button x:Name="JsonToDatabase" Content="Voeg de spellen toe aan de collectie" Margin="10"></Button>
+            <Button x:Name="JsonToDatabase" Content="Voeg de spellen toe aan de database" Margin="10"></Button>
         </StackPanel>
         <StackPanel Grid.Column="1">
             <Label Content="Lijst van opgehaalde spellen : "/>
             <ComboBox Grid.Column="1" x:Name="GameTitles" Margin="10" DisplayMemberPath="JsonTitel" />
         </StackPanel>
-        
-        <TextBlock x:Name="JsonStringText" Grid.Row="1" Grid.ColumnSpan="2" Margin="10"/>
-    </Grid>
+            <Grid Width="auto" Grid.Row="1" Grid.ColumnSpan="2">
+                <ScrollViewer>
+                    <TextBlock x:Name="JsonStringText"  Margin="10" 
+                   ScrollViewer.VerticalScrollBarVisibility="Visible"
+                   materialDesign:ScrollViewerAssist.CornerRectangleVisibility="Visible"/>
+                </ScrollViewer>
+            </Grid>
+            
+            
+        </Grid>
     </GroupBox>
 </Window>

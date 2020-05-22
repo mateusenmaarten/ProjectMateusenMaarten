@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Project_WPF.ViewModels
 {
@@ -59,18 +60,35 @@ namespace Project_WPF.ViewModels
         //Eerst lijst van (Boardgames) titels ophalen uit db en enkel spel toevoegen als de tital nog niet in deze lijst zit? 
         public void JsonToDatabase()
         {
-            foreach (Boardgame bg in jsonGameList)
+            JsonStringText = "";
+            if (GameTitles == null)
             {
-                if (bg.IsGeldig())
+                JsonStringText = $"Haal eerst de spellen op uit JSON";
+            }
+            else
+            {
+                foreach (Boardgame bg in jsonGameList)
                 {
-                    DatabaseOperations.AddBoardgame(bg);
-                    JsonStringText = "De spellen zijn toegevoegd aan de database";
-                }
-                else
-                {
-                    JsonStringText = bg.Error;
+                    if (!DatabaseOperations.GetBoardgames().Contains(bg))
+                    {
+                        if (bg.IsGeldig())
+                        {
+                            DatabaseOperations.AddBoardgame(bg);
+                            JsonStringText = "De spellen zijn toegevoegd aan de database";
+                        }
+                        else
+                        {
+                            JsonStringText = bg.Error;
+                        }
+                    }
+                    else
+                    {
+                        JsonStringText += $"{bg.Titel} is al opgenomen in de database" + Environment.NewLine;
+                    }
+
                 }
             }
+            
         }
     }
 }

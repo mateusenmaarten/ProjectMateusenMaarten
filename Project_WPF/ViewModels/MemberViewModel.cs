@@ -52,13 +52,9 @@ namespace Project_WPF.ViewModels
                 {
                     FileOperations.FoutLoggen(ne);
                 }
-               
-
                 NotifyOfPropertyChange(() => SelectedOwner); 
             }
         }
-
-
         private string _txtFirstname;
         private string _txtLastname;
         private string _txtEmail;
