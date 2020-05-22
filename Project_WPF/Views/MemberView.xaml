@@ -61,7 +61,7 @@
                 </GroupBox>
                 <materialDesign:PackIcon Kind="ArrowRightThick" Height="30" Width="30" VerticalAlignment="Center" Margin="5"/>
                 <GroupBox
-                    Header="+/- Eigenaar"
+                    Header="Eigenaar"
                     Style="{DynamicResource MaterialDesignGroupBox}"
                     Margin="0 0 5 0" BorderThickness="2"
                     materialDesign:ColorZoneAssist.Mode="Accent" Width="110">
@@ -72,7 +72,7 @@
                     </TextBlock>
                 </GroupBox>
                 <GroupBox
-                    Header="+/- Designer"
+                    Header="Designer"
                     Style="{DynamicResource MaterialDesignGroupBox}"
                     Margin="0 0 0 0" BorderThickness="2"
                     materialDesign:ColorZoneAssist.Mode="Accent" Width="110">
@@ -89,14 +89,17 @@
                               ItemsSource="{Binding PersonsWithBoardgames}" DisplayMemberPath="{Binding Fullname}"
                               SelectedItem="{Binding SelectedOwner}" materialDesign:HintAssist.Hint="Selecteer een eigenaar om zijn colectie weer te geven" />
                     <DataGrid x:Name="OwnerDatagrid" ItemsSource="{Binding BoardgamesFromOwner}"
-                              AutoGenerateColumns="False"  
+                              AutoGenerateColumns="False"  SelectedItem="{Binding SelectedOwnerGame}"
                               Margin="5" 
                               Height="167">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding Titel}" Header="Spellen in bezit:"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <Button x:Name="DeleteGame" Content="Spel verwijderen uit collectie" Margin="5" Width="auto"  />
+                    <Button x:Name="DeleteGame" cal:Message.Attach="DeleteGame"
+                            Content="Spel verwijderen uit collectie" 
+                            Margin="5" Width="auto" 
+                            />
                 </StackPanel>
             </GroupBox>
         </StackPanel>

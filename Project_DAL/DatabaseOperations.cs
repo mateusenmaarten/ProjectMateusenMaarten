@@ -197,6 +197,23 @@ namespace Project_DAL
             }
         }
 
+        public static int DeleteGameOwner(Owner owner)
+        {
+            try
+            {
+                using (GameClubEntities gameClubEntities = new GameClubEntities())
+                {
+                    gameClubEntities.Entry(owner).State = EntityState.Deleted;
+                    return gameClubEntities.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                FileOperations.FoutLoggen(ex);
+                return 0;
+            }
+        }
+
         public static int AddPlaySession(PlaySession session, ref int session_id)
         {
             session_id = 0;

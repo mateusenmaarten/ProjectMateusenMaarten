@@ -22,6 +22,18 @@ namespace Project_WPF.ViewModels
 
         private Person _selectedPerson = null;
         private Boardgame _selectedGame = null;
+        private Boardgame _selectedOwnerGame;
+
+        public Boardgame SelectedOwnerGame
+        {
+            get { return _selectedOwnerGame; }
+            set 
+            { 
+                _selectedOwnerGame = value;
+                NotifyOfPropertyChange(() => SelectedOwnerGame);
+            }
+        }
+
         private Person _selectedOwner = null;
 
         public Person SelectedOwner
@@ -32,7 +44,15 @@ namespace Project_WPF.ViewModels
                 _selectedOwner = value;
 
                 BoardgamesFromOwner = new BindableCollection<Boardgame>();
-                BoardgamesFromOwner = GetBoardgamesFromOwner(GetBoardgameIDsFromSelectedOwner(SelectedOwner.Person_id));
+                try
+                {
+                    BoardgamesFromOwner = GetBoardgamesFromOwner(GetBoardgameIDsFromSelectedOwner(SelectedOwner.Person_id));
+                }
+                catch (NullReferenceException ne)
+                {
+                    FileOperations.FoutLoggen(ne);
+                }
+               
 
                 NotifyOfPropertyChange(() => SelectedOwner); 
             }
@@ -352,6 +372,35 @@ namespace Project_WPF.ViewModels
             SelectedGame = null;
             SelectedPerson = null;
             ReloadLists();
+        }
+
+        public void DeleteGame()
+        {
+            int ok = -1;
+            if (SelectedOwnerGame != null && SelectedOwner != null)
+            {
+                foreach (Owner owner in DatabaseOperations.GetOwners())
+                {
+                    if (owner.Person_id == SelectedOwner.Person_id
+                        && owner.Boardgame_id == SelectedOwnerGame.Boardgame_id)
+                    {
+                        ok = DatabaseOperations.DeleteGameOwner(owner);
+                    }
+                }
+                if (ok > 0)
+                {
+                    MessageBox.Show($"{SelectedOwner.Fullname} is niet langer eigenaar van {SelectedOwnerGame.Titel}");
+                    SelectedOwner = null;
+                }
+                else
+                {
+                    MessageBox.Show($"Verwijderen NIET gelukt");
+                }
+            }
+            else
+            {
+                MessageBox.Show($"Selecteer een spel van een eigenaar om te verwijderen");
+            }
         }
 
         public List<int> GetPersonIDsFromOwner(BindableCollection<Owner> owners)
