@@ -90,7 +90,7 @@ namespace Project_WPF.ViewModels
         private string _txtMinAge;
         private bool _smallParts;
 
-        //Boardgame
+        
         public bool SmallParts
         {
             get { return _smallParts; }
@@ -167,7 +167,6 @@ namespace Project_WPF.ViewModels
         }
         public void AddGame()
         {
-            
             string foutmeldingen = Valideer("TxtMinPlayers");
             foutmeldingen += Valideer("TxtMaxPlayers");
             foutmeldingen += Valideer("TxtMinAge");
@@ -189,32 +188,52 @@ namespace Project_WPF.ViewModels
 
                 if (boardgameToAdd.IsGeldig())
                 {
-                    
-                    if (SelectedGameCategories.Count != 0)
+                    if (!DatabaseOperations.GetBoardgames().Contains(boardgameToAdd))
                     {
-                        DatabaseOperations.AddBoardgame(boardgameToAdd);
-                        foreach (Category cat in SelectedGameCategories)
+                        if (SelectedGameCategories.Count != 0)
                         {
-                            SelectedCategoryIDs.Add(cat.Category_id);
+                            DatabaseOperations.AddBoardgame(boardgameToAdd);
+                            MessageBox.Show($"{boardgameToAdd.Titel} is toegevoegd aan de database");
+                            Wissen();
+                            //Nadat het spel succesvol is toegevoegd wordt het gelinkt aan de juiste categorie
+                            //(in db : Boardgame_Category)
+                            foreach (Category cat in SelectedGameCategories)
+                            {
+                                SelectedCategoryIDs.Add(cat.Category_id);
+                            }
+                            DatabaseOperations.AddCategoryToBoardgame(boardgameToAdd.Boardgame_id, SelectedCategoryIDs);
                         }
-                        DatabaseOperations.AddCategoryToBoardgame(boardgameToAdd.Boardgame_id, SelectedCategoryIDs);
+                        else
+                        {
+                            MessageBox.Show($"Selecteer minstens 1 categorie");
+                        }
                     }
                     else
                     {
-                        MessageBox.Show($"Selecteer minstens 1 categorie");
+                        MessageBox.Show($"Dit spel bestaat al in de database");
                     }
                 }
                 else
                 {
                     MessageBox.Show(boardgameToAdd.Error);
                 }
-
             }
             else
             {
                 MessageBox.Show(foutmeldingen);
             }
+        }
 
+        public void Wissen()
+        {
+            TxtTitle = "";
+            TxtMinPlaytime = "";
+            TxtMaxPlaytime = "";
+            TxtMinPlayers = "";
+            TxtMaxPlayers = "";
+            TxtMinAge = "";
+            SelectedPublisher = null;
+            SelectedGameCategories = new BindableCollection<Category>();
         }
 
         private string Valideer(string columnName)

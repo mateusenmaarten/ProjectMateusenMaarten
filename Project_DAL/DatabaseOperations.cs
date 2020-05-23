@@ -27,7 +27,7 @@ namespace Project_DAL
             {
                 var query = entities.People
                 .Where(x => x.Person_id == personID);
-                
+
                 return query.SingleOrDefault();
             }
         }
@@ -112,13 +112,13 @@ namespace Project_DAL
                 FileOperations.FoutLoggen(ex);
                 return 0;
             }
-            
+
         }
 
-        public static int AddCategoryToBoardgame(int bgID,List<int> catIDs)
+        public static int AddCategoryToBoardgame(int bgID, List<int> catIDs)
         {
             Boardgame_Category bc;
-            
+
             try
             {
                 using (GameClubEntities gameClubEntities = new GameClubEntities())
@@ -130,7 +130,7 @@ namespace Project_DAL
                         bc.Category_id = catID;
                         gameClubEntities.Boardgame_Category.Add(bc);
                     }
-                    
+
                     return gameClubEntities.SaveChanges();
                 }
             }
@@ -143,13 +143,13 @@ namespace Project_DAL
 
         public static int AddPerson(Person person)
         {
-            
+
             try
             {
                 using (GameClubEntities gameClubEntities = new GameClubEntities())
                 {
                     gameClubEntities.People.Add(person);
-                    
+
                     return gameClubEntities.SaveChanges();
                 }
             }
@@ -159,9 +159,6 @@ namespace Project_DAL
                 return 0;
             }
         }
-        
-        
-        
 
         public static int EditPerson(Person person)
         {
@@ -232,7 +229,7 @@ namespace Project_DAL
                 FileOperations.FoutLoggen(ex);
                 return 0;
             }
-            
+
         }
 
         public static int AddPlayer(int personID, int sessionID)

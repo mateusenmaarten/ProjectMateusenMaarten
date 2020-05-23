@@ -28,9 +28,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <!--LedenLijst-->
 
-        <!--Collectie-->
         <StackPanel Grid.Column="1" Orientation="Vertical">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="left" Margin="5">
                 <GroupBox
@@ -171,7 +169,6 @@
                 </Grid>
             </materialDesign:Flipper.FrontContent>
             <!--Achterkant flipkaart-->
-
             <materialDesign:Flipper.BackContent >
                 <Grid Height="auto" Width="200" cal:Bind.Model="{Binding }" VerticalAlignment="Top" >
                     <Grid.RowDefinitions>

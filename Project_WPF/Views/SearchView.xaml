@@ -38,14 +38,7 @@
   materialDesign:HintAssist.Hint="Aantal Spelers"
   Style="{StaticResource MaterialDesignFloatingHintTextBox}"
   VerticalAlignment="Center" />
-                    <TextBox
-  materialDesign:HintAssist.Hint="Tijd beschikbaar in minuten (Optioneel)"
-  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-  VerticalAlignment="Center" />
-                    <TextBox
-  materialDesign:HintAssist.Hint="Leeftijd jongste speler (Optioneel)"
-  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-  VerticalAlignment="Center" />
+                    
                     <Button x:Name="Search" Content="Zoeken" Margin="10"/>
                 </StackPanel>
             </GroupBox>

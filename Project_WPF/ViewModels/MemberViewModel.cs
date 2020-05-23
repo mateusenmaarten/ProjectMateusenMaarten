@@ -14,8 +14,7 @@ namespace Project_WPF.ViewModels
 {
     public class MemberViewModel : Screen
     {
-        
-
+        //Properties
         List<Person> PersonList = new List<Person>();
         List<Boardgame> GameList = new List<Boardgame>();
         List<Owner> OwnerList = new List<Owner>();
@@ -23,23 +22,41 @@ namespace Project_WPF.ViewModels
         private Person _selectedPerson = null;
         private Boardgame _selectedGame = null;
         private Boardgame _selectedOwnerGame;
+        private Person _selectedOwner = null;
+
+        private string _txtFirstname;
+        private string _txtLastname;
+        private string _txtEmail;
+
+        private BindableCollection<Person> _persons;
+        private BindableCollection<Boardgame> _boardgames;
+        private BindableCollection<Owner> _owners;
+        private BindableCollection<Person> _personsWithBoardgames = new BindableCollection<Person>();
+        private BindableCollection<Boardgame> _boardgamesFromOwner;
+
 
         public Boardgame SelectedOwnerGame
         {
             get { return _selectedOwnerGame; }
-            set 
-            { 
+            set
+            {
                 _selectedOwnerGame = value;
                 NotifyOfPropertyChange(() => SelectedOwnerGame);
             }
         }
-
-        private Person _selectedOwner = null;
-
+        public Boardgame SelectedGame
+        {
+            get { return _selectedGame; }
+            set
+            {
+                _selectedGame = value;
+                NotifyOfPropertyChange(() => SelectedGame);
+            }
+        }
         public Person SelectedOwner
         {
             get { return _selectedOwner; }
-            set 
+            set
             {
                 _selectedOwner = value;
 
@@ -52,78 +69,7 @@ namespace Project_WPF.ViewModels
                 {
                     FileOperations.FoutLoggen(ne);
                 }
-                NotifyOfPropertyChange(() => SelectedOwner); 
-            }
-        }
-        private string _txtFirstname;
-        private string _txtLastname;
-        private string _txtEmail;
-        
-
-        private BindableCollection<Person> _persons;
-        private BindableCollection<Boardgame> _boardgames;
-        private BindableCollection<Owner> _owners;
-        private BindableCollection<Person> _personsWithBoardgames = new BindableCollection<Person>();
-        private BindableCollection<Boardgame> _boardgamesFromOwner;
-
-        public BindableCollection<Boardgame> BoardgamesFromOwner
-        {
-            get 
-            {
-                    return _boardgamesFromOwner;                
-            }
-            set 
-            {
-                _boardgamesFromOwner = value;
-                NotifyOfPropertyChange(() => BoardgamesFromOwner); 
-            }
-        }
-
-        public BindableCollection<Person> PersonsWithBoardgames
-        {
-            get { return _personsWithBoardgames; }
-            set { _personsWithBoardgames = value; NotifyOfPropertyChange(() => PersonsWithBoardgames); }
-        }
-
-
-        public BindableCollection<Owner>  Owners
-        {
-            get { return _owners; }
-            set { _owners = value; NotifyOfPropertyChange(() => Owners); }
-        }
-
-
-        //Categorie
-        public BindableCollection<Boardgame> Games
-        {
-            get { return _boardgames; }
-            private set
-            {
-                _boardgames = value;
-                NotifyOfPropertyChange(() => Games);
-            }
-        }
-        public Boardgame SelectedGame
-        {
-            get { return _selectedGame; }
-            set
-            {
-                _selectedGame = value;
-                NotifyOfPropertyChange(() => SelectedGame);
-            }
-        }
-
-        //Person
-        public BindableCollection<Person> Persons 
-        {
-            get 
-            {
-                return _persons;
-            }
-            private set 
-            {
-                _persons = value;
-                NotifyOfPropertyChange(() => Persons);
+                NotifyOfPropertyChange(() => SelectedOwner);
             }
         }
         public Person SelectedPerson
@@ -135,10 +81,59 @@ namespace Project_WPF.ViewModels
             set
             {
                 this._selectedPerson = value;
-               
+
                 NotifyOfPropertyChange(() => SelectedPerson);
             }
         }
+
+        public BindableCollection<Boardgame> BoardgamesFromOwner
+        {
+            get
+            {
+                return _boardgamesFromOwner;
+            }
+            set
+            {
+                _boardgamesFromOwner = value;
+                NotifyOfPropertyChange(() => BoardgamesFromOwner);
+            }
+        }
+
+        public BindableCollection<Person> PersonsWithBoardgames
+        {
+            get { return _personsWithBoardgames; }
+            set { _personsWithBoardgames = value; NotifyOfPropertyChange(() => PersonsWithBoardgames); }
+        }
+
+        public BindableCollection<Owner> Owners
+        {
+            get { return _owners; }
+            set { _owners = value; NotifyOfPropertyChange(() => Owners); }
+        }
+
+        public BindableCollection<Boardgame> Games
+        {
+            get { return _boardgames; }
+            private set
+            {
+                _boardgames = value;
+                NotifyOfPropertyChange(() => Games);
+            }
+        }
+
+        public BindableCollection<Person> Persons
+        {
+            get
+            {
+                return _persons;
+            }
+            private set
+            {
+                _persons = value;
+                NotifyOfPropertyChange(() => Persons);
+            }
+        }
+
         public string TxtFirstname
         {
             get
@@ -175,8 +170,6 @@ namespace Project_WPF.ViewModels
                 NotifyOfPropertyChange(() => TxtEmail);
             }
         }
-        
-        
 
         //Constructor
         public MemberViewModel()
@@ -188,12 +181,13 @@ namespace Project_WPF.ViewModels
             Games = new BindableCollection<Boardgame>(GameList);
         }
 
+        //Methods
         private void ReloadLists()
         {
             //Vul de lijst van personen in
             PersonList = DatabaseOperations.GetPeople();
             Persons = new BindableCollection<Person>(PersonList);
-
+            //Haal owners uit de db
             OwnerList = DatabaseOperations.GetOwners();
             Owners = new BindableCollection<Owner>(OwnerList);
 
@@ -219,17 +213,17 @@ namespace Project_WPF.ViewModels
                 if (!personsInDb.Contains(personToAdd))
                 {
                     DatabaseOperations.AddPerson(personToAdd);
-                    MessageBox.Show($"{personToAdd.Fullname} is nu lid met persoon ID : {personToAdd.Person_id}");
+                    MessageBox.Show($"{personToAdd.Fullname} is nu lid met persoon ID : {personToAdd.Person_id}", "Succes", MessageBoxButton.OK, MessageBoxImage.Information);
                     EmptyTextFields();
                 }
                 else
                 {
-                    MessageBox.Show($"{personToAdd.Fullname} is al toegevoegd aan de database");
+                    MessageBox.Show($"{personToAdd.Fullname} is al toegevoegd aan de database", "Fout", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
             else
             {
-                MessageBox.Show(personToAdd.Error);
+                MessageBox.Show(personToAdd.Error, "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             ReloadLists();
@@ -239,9 +233,9 @@ namespace Project_WPF.ViewModels
         {
             if (SelectedPerson == null)
             {
-                MessageBox.Show($"Selecteer een persoon aub");
+                MessageBox.Show($"Selecteer een persoon aub", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            
+
         }
 
         public void DeletePerson()
@@ -253,43 +247,43 @@ namespace Project_WPF.ViewModels
                 int ok = DatabaseOperations.DeletePerson(person);
                 if (ok > 0)
                 {
-                    MessageBox.Show($"{person.Fullname} is succesvol verwijderd");
+                    MessageBox.Show($"{person.Fullname} is succesvol verwijderd", "Succes", MessageBoxButton.OK, MessageBoxImage.Information);
                     ReloadLists();
                 }
                 else
                 {
-                    MessageBox.Show($"Kan {person.Fullname} niet verwijderen!");
+                    MessageBox.Show($"Kan {person.Fullname} niet verwijderen!", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             else
             {
-                MessageBox.Show($"Selecteer een persoon om te verwijderen");
+                MessageBox.Show($"Selecteer een persoon om te verwijderen", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
-        public void CommitMember() 
+        public void CommitMember()
         {
-            
-                if (SelectedPerson is Person personToEdit)
+
+            if (SelectedPerson is Person personToEdit)
+            {
+                if (personToEdit.IsGeldig())
                 {
-                    if (personToEdit.IsGeldig())
+                    int ok = DatabaseOperations.EditPerson(personToEdit);
+                    if (ok > 0)
                     {
-                        int ok = DatabaseOperations.EditPerson(personToEdit);
-                        if (ok > 0)
-                        {
-                        MessageBox.Show($"Wijziging gelukt!");
-                        }
-                        else
-                        {
-                        MessageBox.Show($"Er is iets fout gegaan");
-                        }
+                        MessageBox.Show($"Wijziging gelukt!", "Succes", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     else
                     {
-                        MessageBox.Show( personToEdit.Error);
+                        MessageBox.Show($"Er is iets fout gegaan", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
-            
+                else
+                {
+                    MessageBox.Show(personToEdit.Error, "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+
 
             ReloadLists();
 
@@ -297,8 +291,9 @@ namespace Project_WPF.ViewModels
 
         public void BackButton()
         {
+            //pijltjes knop op de achterkant van persoon flipcard
             EmptyTextFields();
-            
+
             SelectedPerson = null;
         }
 
@@ -311,7 +306,7 @@ namespace Project_WPF.ViewModels
 
         public void AddOwner()
         {
-            
+            //Er moet een persoon en spel geselecteerd zijn
             if (SelectedPerson != null && SelectedGame != null)
             {
                 Owner o = new Owner();
@@ -322,17 +317,16 @@ namespace Project_WPF.ViewModels
                 if (!ownersInDb.Contains(o))
                 {
                     DatabaseOperations.AddOwnerToDB(o);
-                    MessageBox.Show($"{SelectedPerson.Fullname} is nu eigenaar van {SelectedGame.Titel}");
-
+                    MessageBox.Show($"{SelectedPerson.Fullname} is nu eigenaar van {SelectedGame.Titel}", "Succes", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                 {
-                    MessageBox.Show($"{SelectedPerson.Fullname} is al eigenaar van {SelectedGame.Titel}");
-                }       
+                    MessageBox.Show($"{SelectedPerson.Fullname} is al eigenaar van {SelectedGame.Titel}", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
             }
             else
             {
-                MessageBox.Show($"Selecteer een persoon en een spel aub");
+                MessageBox.Show($"Selecteer een persoon en een spel aub", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             SelectedGame = null;
             SelectedPerson = null;
@@ -343,7 +337,7 @@ namespace Project_WPF.ViewModels
         {
             if (SelectedPerson != null && SelectedGame != null)
             {
-               
+
                 Designer d = new Designer();
                 d.Boardgame_id = SelectedGame.Boardgame_id;
                 d.Person_id = SelectedPerson.Person_id;
@@ -354,16 +348,16 @@ namespace Project_WPF.ViewModels
                 if (!designersInDb.Contains(d))
                 {
                     DatabaseOperations.AddDesignerToDB(d);
-                    MessageBox.Show($"{SelectedPerson.Fullname} is nu toegevoegd aan de database als designer van {SelectedGame.Titel}");
+                    MessageBox.Show($"{SelectedPerson.Fullname} is nu toegevoegd aan de database als designer van {SelectedGame.Titel}", "Succes", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                 {
-                    MessageBox.Show($"{SelectedPerson.Fullname} is reeds toegevoegd als designer van {SelectedGame.Titel}");
+                    MessageBox.Show($"{SelectedPerson.Fullname} is reeds toegevoegd als designer van {SelectedGame.Titel}", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
             else
             {
-                MessageBox.Show($"Selecteer een persoon en een spel aub");
+                MessageBox.Show($"Selecteer een persoon en een spel aub", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             SelectedGame = null;
             SelectedPerson = null;
@@ -414,7 +408,7 @@ namespace Project_WPF.ViewModels
             }
             return ownerPersonIds;
         }
-        
+
         public BindableCollection<Person> GetPersonsWithBoardgames(List<int> personIDs)
         {
             //Voor elk id in deze lijst halen we de persoon uit de db
@@ -425,7 +419,7 @@ namespace Project_WPF.ViewModels
             //de lijst van deze personen linken aan de combobox
             return PersonsWithBoardgames;
         }
-        
+
         public List<int> GetBoardgameIDsFromSelectedOwner(int personID)
         {
             //van deze geselcteerde persoon/owner geven we alle boardgameIDs die bij deze personID horen
@@ -433,10 +427,10 @@ namespace Project_WPF.ViewModels
             boardgameIDs = DatabaseOperations.GetBoardgameIDsFromPerson(personID);
             return boardgameIDs;
         }
-        
+
         public BindableCollection<Boardgame> GetBoardgamesFromOwner(List<int> boardgameIDs)
         {
-            
+
             foreach (int boardgameID in boardgameIDs)
             {
                 BoardgamesFromOwner.Add(DatabaseOperations.GetBoardgameFromBoardgameID(boardgameID));

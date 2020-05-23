@@ -42,8 +42,6 @@
                    materialDesign:ScrollViewerAssist.CornerRectangleVisibility="Visible"/>
                 </ScrollViewer>
             </Grid>
-            
-            
         </Grid>
     </GroupBox>
 </Window>
