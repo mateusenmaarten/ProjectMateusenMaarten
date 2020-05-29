@@ -12,23 +12,13 @@ namespace Project_DAL
 {
     public static class DatabaseOperations
     {
+        //GET
         public static List<Person> GetPeople()
         {
             using (GameClubEntities entities = new GameClubEntities())
             {
                 var query = entities.People;
                 return query.ToList();
-            }
-        }
-
-        public static Person GetPersonFromPersonID(int personID)
-        {
-            using (GameClubEntities entities = new GameClubEntities())
-            {
-                var query = entities.People
-                .Where(x => x.Person_id == personID);
-
-                return query.SingleOrDefault();
             }
         }
 
@@ -58,16 +48,6 @@ namespace Project_DAL
             }
         }
 
-        public static Boardgame GetBoardgameFromBoardgameID(int boardgameID)
-        {
-            using (GameClubEntities entities = new GameClubEntities())
-            {
-                var query = entities.Boardgames
-                    .Where(x => x.Boardgame_id == boardgameID);
-                return query.SingleOrDefault();
-            }
-        }
-
         public static List<Boardgame> GetSearchedBoardgames(int categoryID, int numberOfPlayers)
         {
             using (GameClubEntities gameClubEntities = new GameClubEntities())
@@ -79,6 +59,7 @@ namespace Project_DAL
                 return query.ToList();
             }
         }
+
         public static List<Category> GetCategories()
         {
             using (GameClubEntities entities = new GameClubEntities())
@@ -97,6 +78,46 @@ namespace Project_DAL
             }
         }
 
+        public static List<Owner> GetOwners()
+        {
+            using (GameClubEntities entities = new GameClubEntities())
+            {
+                var query = entities.Owners;
+                return query.ToList();
+            }
+        }
+
+        public static List<Designer> GetDesigners()
+        {
+            using (GameClubEntities entities = new GameClubEntities())
+            {
+                var query = entities.Designers;
+                return query.ToList();
+            }
+        }
+
+        public static Person GetPersonFromPersonID(int personID)
+        {
+            using (GameClubEntities entities = new GameClubEntities())
+            {
+                var query = entities.People
+                .Where(x => x.Person_id == personID);
+
+                return query.SingleOrDefault();
+            }
+        }
+
+        public static Boardgame GetBoardgameFromBoardgameID(int boardgameID)
+        {
+            using (GameClubEntities entities = new GameClubEntities())
+            {
+                var query = entities.Boardgames
+                    .Where(x => x.Boardgame_id == boardgameID);
+                return query.SingleOrDefault();
+            }
+        }
+
+        //ADD
         public static int AddBoardgame(Boardgame bg)
         {
             try
@@ -160,47 +181,16 @@ namespace Project_DAL
             }
         }
 
-        public static int EditPerson(Person person)
+        public static int AddPlayer(int personID, int sessionID)
         {
             try
             {
                 using (GameClubEntities gameClubEntities = new GameClubEntities())
                 {
-                    gameClubEntities.Entry(person).State = EntityState.Modified;
-                    return gameClubEntities.SaveChanges();
-                }
-            }
-            catch (Exception ex)
-            {
-                FileOperations.FoutLoggen(ex);
-                return 0;
-            }
-        }
-
-        public static int DeletePerson(Person person)
-        {
-            try
-            {
-                using (GameClubEntities gameClubEntities = new GameClubEntities())
-                {
-                    gameClubEntities.Entry(person).State = EntityState.Deleted;
-                    return gameClubEntities.SaveChanges();
-                }
-            }
-            catch (Exception ex)
-            {
-                FileOperations.FoutLoggen(ex);
-                return 0;
-            }
-        }
-
-        public static int DeleteGameOwner(Owner owner)
-        {
-            try
-            {
-                using (GameClubEntities gameClubEntities = new GameClubEntities())
-                {
-                    gameClubEntities.Entry(owner).State = EntityState.Deleted;
+                    Player player = new Player();
+                    player.Person_id = personID;
+                    player.PlaySession_id = sessionID;
+                    gameClubEntities.Players.Add(player);
                     return gameClubEntities.SaveChanges();
                 }
             }
@@ -230,26 +220,6 @@ namespace Project_DAL
                 return 0;
             }
 
-        }
-
-        public static int AddPlayer(int personID, int sessionID)
-        {
-            try
-            {
-                using (GameClubEntities gameClubEntities = new GameClubEntities())
-                {
-                    Player player = new Player();
-                    player.Person_id = personID;
-                    player.PlaySession_id = sessionID;
-                    gameClubEntities.Players.Add(player);
-                    return gameClubEntities.SaveChanges();
-                }
-            }
-            catch (Exception ex)
-            {
-                FileOperations.FoutLoggen(ex);
-                return 0;
-            }
         }
 
         public static int AddOwnerToDB(Owner owner)
@@ -286,22 +256,63 @@ namespace Project_DAL
             }
         }
 
-        public static List<Owner> GetOwners()
+        //EDIT
+        public static int EditPerson(Person person)
         {
-            using (GameClubEntities entities = new GameClubEntities())
+            try
             {
-                var query = entities.Owners;
-                return query.ToList();
+                using (GameClubEntities gameClubEntities = new GameClubEntities())
+                {
+                    gameClubEntities.Entry(person).State = EntityState.Modified;
+                    return gameClubEntities.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                FileOperations.FoutLoggen(ex);
+                return 0;
             }
         }
 
-        public static List<Designer> GetDesigners()
+        //DELETE
+        public static int DeletePerson(Person person)
         {
-            using (GameClubEntities entities = new GameClubEntities())
+            try
             {
-                var query = entities.Designers;
-                return query.ToList();
+                using (GameClubEntities gameClubEntities = new GameClubEntities())
+                {
+                    gameClubEntities.Entry(person).State = EntityState.Deleted;
+                    return gameClubEntities.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                FileOperations.FoutLoggen(ex);
+                return 0;
             }
         }
+
+        public static int DeleteGameOwner(Owner owner)
+        {
+            try
+            {
+                using (GameClubEntities gameClubEntities = new GameClubEntities())
+                {
+                    gameClubEntities.Entry(owner).State = EntityState.Deleted;
+                    return gameClubEntities.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                FileOperations.FoutLoggen(ex);
+                return 0;
+            }
+        }
+
+        
+
+        
+
+        
     }
 }

@@ -14,11 +14,10 @@ namespace Project_WPF.ViewModels
 {
     public class MemberViewModel : Screen
     {
-        //Properties
         List<Person> PersonList = new List<Person>();
         List<Boardgame> GameList = new List<Boardgame>();
         List<Owner> OwnerList = new List<Owner>();
-
+        //Properties
         private Person _selectedPerson = null;
         private Boardgame _selectedGame = null;
         private Boardgame _selectedOwnerGame;
@@ -438,7 +437,6 @@ namespace Project_WPF.ViewModels
             //van deze boardgameID's tonen we de titels in het datagrid
             return BoardgamesFromOwner;
         }
-
 
     }
 }

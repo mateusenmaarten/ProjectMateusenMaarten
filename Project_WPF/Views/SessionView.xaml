@@ -16,6 +16,7 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
         Title="Sessie" Height="450" Width="800" Icon="games-icon-png-17.jpg">
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -26,9 +27,11 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+        
+        <!--DEELNEMERS-->
         <GroupBox Grid.ColumnSpan="2"
-  Header="1. Selecteer wie deelneemt aan de sessie"
-  Margin="5 5 5 0" BorderThickness="5">
+                  Header="1. Selecteer wie deelneemt aan de sessie"
+                  Margin="5 5 5 0" BorderThickness="5">
             <StackPanel Orientation="Horizontal">
                 <ComboBox x:Name="Players" SelectedItem="SelectedPlayer" DisplayMemberPath="Fullname"
                           Width="150" VerticalAlignment="Top"
@@ -36,18 +39,19 @@
                 </ComboBox>
                 <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                     <Button x:Name="AddPlayerToSession" Width="100" Margin="5"
-  Content="{materialDesign:PackIcon ArrowRightBoldOutline}"
-  ToolTip="Voeg toe aan deelnemers" />
+                            Content="{materialDesign:PackIcon ArrowRightBoldOutline}"
+                            ToolTip="Voeg toe aan deelnemers" />
                     <Button x:Name="RemovePlayerFromSession" Width="100" Margin="5"
-  Content="{materialDesign:PackIcon ArrowLeftBoldOutline}"
-  ToolTip="Verwijder uit deelnemers" />
+                            Content="{materialDesign:PackIcon ArrowLeftBoldOutline}"
+                            ToolTip="Verwijder uit deelnemers" />
                 </StackPanel>
             </StackPanel>
         </GroupBox>
-
+        
+        <!--SPEL EN DATUM SELECTEREN-->
         <GroupBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"
-  Header="2. Selecteer een spel en de datum van de sessie"
-  Margin="5" BorderThickness="5">
+                    Header="2. Selecteer een spel en de datum van de sessie"
+                    Margin="5" BorderThickness="5">
             <StackPanel Orientation="Horizontal">
                 <ComboBox x:Name="Boardgames" SelectedItem="SelectedBoardgame" DisplayMemberPath="Titel"
                     Width="150"
@@ -59,11 +63,13 @@
                     Style="{StaticResource MaterialDesignOutlinedDatePicker}" />
             </StackPanel>
         </GroupBox>
+        
+        <!--OVERZICHT-->
         <GroupBox Grid.Column="2" Grid.RowSpan="2"
-  Header="Samenvatting" BorderThickness="5"
-  Style="{DynamicResource MaterialDesignGroupBox}"
-  Margin="0 5 5 5"
-  materialDesign:ColorZoneAssist.Mode="Accent">
+                    Header="Samenvatting" BorderThickness="5"
+                    Style="{DynamicResource MaterialDesignGroupBox}"
+                    Margin="0 5 5 5"
+                    materialDesign:ColorZoneAssist.Mode="Accent">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition/>

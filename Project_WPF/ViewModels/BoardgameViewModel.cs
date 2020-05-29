@@ -16,6 +16,7 @@ namespace Project_WPF.ViewModels
         List<Publisher> PublisherList = new List<Publisher>();
         List<Category> CategoryList = new List<Category>();
 
+        //PROPERTIES
         private BindableCollection<Publisher> _publishers = new BindableCollection<Publisher>();
         private BindableCollection<Category> _categories;
         private Publisher _selectedPublisher;
@@ -23,27 +24,36 @@ namespace Project_WPF.ViewModels
         private Category _selectedGameCategory;
         private BindableCollection<Category> _selectedGameCategories = new BindableCollection<Category>();
         private BindableCollection<Category> _datagridCategories = new BindableCollection<Category>();
+        private List<int> _selectedCategoryIDs = new List<int>();
+
+        private string _txtTitle;
+        private string _txtMinPlayers;
+        private string _txtMaxPlayers;
+        private string _txtMinPlaytime;
+        private string _txtMaxPlaytime;
+        private string _txtMinAge;
+        private bool _smallParts;
 
         public BindableCollection<Category> DataGridCategories
         {
             get { return _datagridCategories; }
             set { _datagridCategories  = value; NotifyOfPropertyChange(() => DataGridCategories); }
         }
-
         public BindableCollection<Category> SelectedGameCategories
         {
             get { return _selectedGameCategories; }
             set { _selectedGameCategories = value; NotifyOfPropertyChange(() => SelectedGameCategories); }
         }
-
-
-        public  Category SelectedGameCategory
+        public BindableCollection<Publisher> Publishers
         {
-            get { return _selectedGameCategory; }
-            set { _selectedGameCategory = value; }
+            get { return _publishers; }
+            set { _publishers = value; NotifyOfPropertyChange(() => Publishers); }
         }
-
-        private List<int> _selectedCategoryIDs = new List<int>();
+        public BindableCollection<Category> Categories
+        {
+            get { return _categories; }
+            set { _categories = value; NotifyOfPropertyChange(() => Categories); }
+        }
 
         public List<int> SelectedCategoryIDs
         {
@@ -56,41 +66,17 @@ namespace Project_WPF.ViewModels
             get { return _selectedPublisher; }
             set { _selectedPublisher = value; NotifyOfPropertyChange(() => SelectedPublisher); }
         }
-        public BindableCollection<Publisher> Publishers
-        {
-            get { return _publishers; }
-            set { _publishers = value; NotifyOfPropertyChange(() => Publishers); }
-        }
-        public BindableCollection<Category> Categories
-        {
-            get { return _categories; }
-            set { _categories = value; NotifyOfPropertyChange(() => Categories); }
-        }
-        public BoardgameViewModel()
-        {
-            PublisherList = DatabaseOperations.GetPublishers();
-            Publishers = new BindableCollection<Publisher>(PublisherList);
-
-            CategoryList = DatabaseOperations.GetCategories();
-            Categories = new BindableCollection<Category>(CategoryList);
-
-        }
         public Category SelectedCategory
         {
             get { return _selectedCategory; }
             set { _selectedCategory = value; NotifyOfPropertyChange(() => SelectedCategory); }
         }
-        
+        public Category SelectedGameCategory
+        {
+            get { return _selectedGameCategory; }
+            set { _selectedGameCategory = value; }
+        }
 
-        private string _txtTitle;
-        private string _txtMinPlayers;
-        private string _txtMaxPlayers;
-        private string _txtMinPlaytime;
-        private string _txtMaxPlaytime;
-        private string _txtMinAge;
-        private bool _smallParts;
-
-        
         public bool SmallParts
         {
             get { return _smallParts; }
@@ -121,14 +107,24 @@ namespace Project_WPF.ViewModels
             get { return _txtMinPlayers; }
             set { _txtMinPlayers = value; NotifyOfPropertyChange(() => TxtMinPlayers); }
         }
-        
         public string TxtTitle
         {
             get { return _txtTitle; }
             set { _txtTitle = value; NotifyOfPropertyChange(() => TxtTitle); }
         }
 
+        //CONSTRUCTOR
+        public BoardgameViewModel()
+        {
+            PublisherList = DatabaseOperations.GetPublishers();
+            Publishers = new BindableCollection<Publisher>(PublisherList);
 
+            CategoryList = DatabaseOperations.GetCategories();
+            Categories = new BindableCollection<Category>(CategoryList);
+
+        }
+
+        //METHODS
         public void AddCategoryToGame()
         {
             string foutmeldingen = Valideer("SelectedCategory");
@@ -151,7 +147,6 @@ namespace Project_WPF.ViewModels
                 MessageBox.Show(foutmeldingen);
             }
         }
-
         public void RemoveCategoryFromGame()
         {
             if (SelectedGameCategory == null)
@@ -235,7 +230,6 @@ namespace Project_WPF.ViewModels
             SelectedPublisher = null;
             SelectedGameCategories = new BindableCollection<Category>();
         }
-
         private string Valideer(string columnName)
         {
             

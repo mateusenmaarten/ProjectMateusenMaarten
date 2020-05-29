@@ -32,8 +32,10 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-
+            
+            <!--BOARDGAME FORM-->
             <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="0" >
+                
                 <TextBox HorizontalAlignment="Left" Width="435"
                       x:Name="TxtTitle" Text="{Binding TxtTitle}"  Height="auto" Margin="5,5,0,5" 
                       materialDesign:HintAssist.Hint="Titel" 
@@ -54,54 +56,51 @@
                     <materialDesign:PackIcon Kind="Baby" VerticalAlignment="Bottom" Margin="20 0 5 5"/>
                     <ToggleButton x:Name="SmallParts" Margin="5" VerticalAlignment="Bottom" Style="{StaticResource MaterialDesignSwitchAccentToggleButton}" ToolTip="bevat GEEN kleine onderdelen" IsChecked="False"/>
                 </StackPanel>
-
+                
+                <!--SELECT PUBLISHER-->
                 <ComboBox x:Name="Publishers" ItemsSource="{Binding Publishers}" DisplayMemberPath="Publisher_name" SelectedItem="{Binding SelectedPublisher}" 
                       materialDesign:HintAssist.Hint="Publisher" Margin="10" Width="auto" Height="auto">
                 </ComboBox>
-                <StackPanel Orientation="Horizontal" Height="150">
                 
-                     
+                <!--CATEGORY TO ADD TO BOARDGAME-->
+                <StackPanel Orientation="Horizontal" Height="150">
+
                          <DataGrid x:Name="DataGridCategories" 
                               ItemsSource="{Binding SelectedGameCategories}"
                               SelectedItem="{Binding SelectedGameCategory}"
                               Height="auto" Width="320" Margin="5" AutoGenerateColumns="False">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Spel categorie:" Binding="{Binding Category_name}" />
-                        </DataGrid.Columns>
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Spel categorie:" Binding="{Binding Category_name}" />
+                            </DataGrid.Columns>
                         </DataGrid>
                     
-                
-                    <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                        <!--ARROW BUTTONS-->
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                            <Button x:Name="AddCategoryToGame" Width="100" Margin="5"
+                                    Content="{materialDesign:PackIcon ArrowLeftBoldOutline}"
+                                    ToolTip="Voeg categorie toe aan spel"
+                                    cal:Message.Attach="AddCategoryToGame"/>
+                            <Button x:Name="RemoveCategoryFromGame" Width="100" Margin="5"
+                                    Content="{materialDesign:PackIcon ArrowRightBoldOutline}"
+                                    ToolTip="Verwijder categorie van spel"
+                                    cal:Message.Attach="RemoveCategoryFromGame"/>
+                        </StackPanel>
                     
-                    <Button x:Name="AddCategoryToGame" Width="100" Margin="5"
-                            Content="{materialDesign:PackIcon ArrowLeftBoldOutline}"
-                            ToolTip="Voeg categorie toe aan spel"
-                            cal:Message.Attach="AddCategoryToGame"/>
-                    <Button x:Name="RemoveCategoryFromGame" Width="100" Margin="5"
-                            Content="{materialDesign:PackIcon ArrowRightBoldOutline}"
-                            ToolTip="Verwijder categorie van spel"
-                            cal:Message.Attach="RemoveCategoryFromGame"/>
-                </StackPanel>
                 </StackPanel>
                 <Button x:Name="AddGame" cal:Message.Attach="AddGame" Content="Voeg spel toe" Grid.Row="0"  Margin="5" Height="50" />
             </StackPanel>
-
+            
+            <!--CHOOSE FROM EXISTING CATEGORY-->
             <StackPanel Grid.Column="1" Orientation="Vertical" Width="300">
+                
                 <Label Content="Selecteer categorie: " Margin="5"/>
                 <ListBox  x:Name="CategoryList" 
                           DisplayMemberPath="Category_name" Height="300"
-                            ItemsSource="{Binding Categories}" Margin="5"
-                          SelectedItem="{Binding SelectedCategory}"
-                  >
-                 
-                </ListBox>
+                          ItemsSource="{Binding Categories}" Margin="5"
+                          SelectedItem="{Binding SelectedCategory}"/>
             </StackPanel>
-
             
         </Grid>
         </TextBlock>
     </GroupBox>
-
-
-
 </Window>

@@ -38,8 +38,8 @@
             <Grid Width="auto" Grid.Row="1" Grid.ColumnSpan="2">
                 <ScrollViewer>
                     <TextBlock x:Name="JsonStringText"  Margin="10" 
-                   ScrollViewer.VerticalScrollBarVisibility="Visible"
-                   materialDesign:ScrollViewerAssist.CornerRectangleVisibility="Visible"/>
+                        ScrollViewer.VerticalScrollBarVisibility="Visible"
+                        materialDesign:ScrollViewerAssist.CornerRectangleVisibility="Visible"/>
                 </ScrollViewer>
             </Grid>
         </Grid>

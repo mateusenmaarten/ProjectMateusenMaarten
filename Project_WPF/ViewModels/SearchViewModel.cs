@@ -12,48 +12,58 @@ namespace Project_WPF.ViewModels
     public class SearchViewModel : Screen
     {
         List<Category> categoryList = new List<Category>();
-        
+
+        //Constructor
         public SearchViewModel()
         {
             categoryList = DatabaseOperations.GetCategories();
             Categories = new BindableCollection<Category>(categoryList);
         }
 
+        //Properties
         private BindableCollection<Category> _categories;
+        private BindableCollection<Boardgame> _boardgameList;
         private Category _selectedCategory;
         private int _txtNumberOfPlayers;
-        private BindableCollection<Boardgame> _boardgameList;
+        
 
         public BindableCollection<Boardgame> BoardgameList
         {
             get { return _boardgameList; }
             set { _boardgameList = value; NotifyOfPropertyChange(() => BoardgameList); }
         }
-
-        public int TxtNumberOfPlayers
-        {
-            get { return _txtNumberOfPlayers; }
-            set { _txtNumberOfPlayers = value; NotifyOfPropertyChange(() => TxtNumberOfPlayers); }
-        }
-
-        public Category SelectedCategory
-        {
-            get { return _selectedCategory; }
-            set { _selectedCategory = value; NotifyOfPropertyChange(() => SelectedCategory); }
-        }
         public BindableCollection<Category> Categories
         {
             get { return _categories; }
             set { _categories = value; NotifyOfPropertyChange(() => Categories); }
         }
-
+        public Category SelectedCategory
+        {
+            get { return _selectedCategory; }
+            set { _selectedCategory = value; NotifyOfPropertyChange(() => SelectedCategory); }
+        }
+        public int TxtNumberOfPlayers
+        {
+            get { return _txtNumberOfPlayers; }
+            set { _txtNumberOfPlayers = value; NotifyOfPropertyChange(() => TxtNumberOfPlayers); }
+        }
+        
+        //Methods
         public void Search()
         {
-            BoardgameList = new BindableCollection<Boardgame>();
-            foreach (Boardgame boardgame in DatabaseOperations.GetSearchedBoardgames(SelectedCategory.Category_id, TxtNumberOfPlayers))
+            try
             {
-                BoardgameList.Add(boardgame);
+                BoardgameList = new BindableCollection<Boardgame>();
+                foreach (Boardgame boardgame in DatabaseOperations.GetSearchedBoardgames(SelectedCategory.Category_id, TxtNumberOfPlayers))
+                {
+                    BoardgameList.Add(boardgame);
+                }
             }
+            catch (Exception ex)
+            {
+                FileOperations.FoutLoggen(ex);
+            }
+            
             
         }
     }

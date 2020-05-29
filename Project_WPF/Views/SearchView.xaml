@@ -16,6 +16,7 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
         Title="Zoeken" Height="450" Width="800" Icon="games-icon-png-17.jpg">
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -24,6 +25,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        
+        <!--ZOEKVENSTER-->
         <StackPanel>
             <GroupBox Header="Zoek een spel om te spelen :" Margin="5" Height="auto" BorderThickness="5">
                 <StackPanel>
@@ -35,19 +38,21 @@
                        
                     </ComboBox>
                     <TextBox x:Name="TxtNumberOfPlayers"
-  materialDesign:HintAssist.Hint="Aantal Spelers"
-  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-  VerticalAlignment="Center" />
+                        materialDesign:HintAssist.Hint="Aantal Spelers"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        VerticalAlignment="Center" />
                     
                     <Button x:Name="Search" Content="Zoeken" Margin="10"/>
                 </StackPanel>
             </GroupBox>
         </StackPanel>
+        
+        <!--OVERZICHT ZOEKRESULTAAT-->
         <GroupBox Grid.Column="1" BorderThickness="5"
-  Header="Overzicht van de spellen in de database die voldoen aan de voorwaarden :"
-  Style="{DynamicResource MaterialDesignGroupBox}"
-  Margin="5"
-  materialDesign:ColorZoneAssist.Mode="Accent">
+                Header="Overzicht van de spellen in de database die voldoen aan de voorwaarden :"
+                Style="{DynamicResource MaterialDesignGroupBox}"
+                Margin="5"
+                materialDesign:ColorZoneAssist.Mode="Accent">
             <DataGrid   x:Name="BoardgameDataGrid" AutoGenerateColumns="False"
                         ItemsSource="{Binding BoardgameList}">
                 <DataGrid.Columns>

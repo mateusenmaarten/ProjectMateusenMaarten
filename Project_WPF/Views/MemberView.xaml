@@ -18,6 +18,7 @@
         
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
         Title="Personen en collecties" Height="450" Width="800" Icon="games-icon-png-17.jpg">
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
@@ -31,6 +32,7 @@
 
         <StackPanel Grid.Column="1" Orientation="Vertical">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="left" Margin="5">
+                <!--Lijst personen-->
                 <GroupBox
                     Header="Selecteer een persoon"
                     Style="{DynamicResource MaterialDesignGroupBox}"
@@ -44,6 +46,7 @@
                         </ComboBox>
                     </TextBlock>
                 </GroupBox>
+                <!--Lijst spellen-->
                 <GroupBox
                     Header="Selecteer een bordspel"
                     Style="{DynamicResource MaterialDesignGroupBox}"
@@ -58,6 +61,7 @@
                     </TextBlock>
                 </GroupBox>
                 <materialDesign:PackIcon Kind="ArrowRightThick" Height="30" Width="30" VerticalAlignment="Center" Margin="5"/>
+                <!--Eigenaar van borspel toevoegen-->
                 <GroupBox
                     Header="Eigenaar"
                     Style="{DynamicResource MaterialDesignGroupBox}"
@@ -69,6 +73,7 @@
                             ToolTip="Maak een persoon eigenaar van een bordspel" />
                     </TextBlock>
                 </GroupBox>
+                <!--Designer van borspel toevoegen-->
                 <GroupBox
                     Header="Designer"
                     Style="{DynamicResource MaterialDesignGroupBox}"
@@ -81,6 +86,7 @@
                     </TextBlock>
                 </GroupBox>
             </StackPanel>
+            <!--Collectie van eigenaar-->
             <GroupBox  Header="Toon de collectie van een eigenaar" Margin="5" BorderThickness="5" Height="300">
                 <StackPanel Orientation="Vertical">
                     <ComboBox x:Name="Owners"
@@ -101,12 +107,7 @@
                 </StackPanel>
             </GroupBox>
         </StackPanel>
-        <!--Collectie Buttons-->
-        <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center" Width="574" Margin="10,0" Grid.Column="1">
-            
-        </StackPanel>
-
-
+        
         <materialDesign:Flipper VerticalAlignment="Top" Height="410" Style="{StaticResource MaterialDesignCardFlipper}" Margin="5">
             <!--Voorkant flipkaart-->
             <materialDesign:Flipper.FrontContent>

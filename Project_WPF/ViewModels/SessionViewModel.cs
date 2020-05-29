@@ -14,6 +14,7 @@ namespace Project_WPF.ViewModels
 {
     public class SessionViewModel : Screen
     {
+        //Constructor
         public SessionViewModel()
         {
             PlayerList = DatabaseOperations.GetPeople();
@@ -26,6 +27,7 @@ namespace Project_WPF.ViewModels
         List<Person> PlayerList = new List<Person>();
         List<Boardgame> BoardGameList = new List<Boardgame>();
 
+        //Properties
         private BindableCollection<Person> _players;
         private BindableCollection<Boardgame> _boardgames;
         private BindableCollection<Person> _selectedPlayers = new BindableCollection<Person>();
@@ -120,6 +122,7 @@ namespace Project_WPF.ViewModels
             }
         }
 
+        //Methods
         public void AddPlayerToSession()
         {
             string foutmeldingen = Valideer("SelectedPlayer");
@@ -201,7 +204,6 @@ namespace Project_WPF.ViewModels
 
             ClearAllFields();
         }
-
         public string Valideer(string columnName)
         {
             if (columnName == "SelectedPlayer" && SelectedPlayer == null)
@@ -222,7 +224,6 @@ namespace Project_WPF.ViewModels
             }
             return "";
         }
-
         public void ClearAllFields()
         {
             SelectedPlayers.Clear();
