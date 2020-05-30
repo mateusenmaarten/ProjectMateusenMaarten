@@ -58,7 +58,7 @@ namespace Project_WPF.ViewModels
         public List<int> SelectedCategoryIDs
         {
             get { return _selectedCategoryIDs; }
-            set { _selectedCategoryIDs = value; }
+            set { _selectedCategoryIDs = value; NotifyOfPropertyChange(()=> SelectedCategoryIDs); }
         }
 
         public Publisher SelectedPublisher
@@ -134,13 +134,11 @@ namespace Project_WPF.ViewModels
                 if (!SelectedGameCategories.Contains(SelectedCategory))
                 {
                     SelectedGameCategories.Add(SelectedCategory);
-                    
                 }
                 else
                 {
                     MessageBox.Show($"Deze categorie is al toegevoegd");
                 }
-
             }
             else
             {
@@ -189,7 +187,7 @@ namespace Project_WPF.ViewModels
                         {
                             DatabaseOperations.AddBoardgame(boardgameToAdd);
                             MessageBox.Show($"{boardgameToAdd.Titel} is toegevoegd aan de database");
-                            Wissen();
+                            
                             //Nadat het spel succesvol is toegevoegd wordt het gelinkt aan de juiste categorie
                             //(in db : Boardgame_Category)
                             foreach (Category cat in SelectedGameCategories)
@@ -197,6 +195,7 @@ namespace Project_WPF.ViewModels
                                 SelectedCategoryIDs.Add(cat.Category_id);
                             }
                             DatabaseOperations.AddCategoryToBoardgame(boardgameToAdd.Boardgame_id, SelectedCategoryIDs);
+                            Wissen();
                         }
                         else
                         {
@@ -232,7 +231,6 @@ namespace Project_WPF.ViewModels
         }
         private string Valideer(string columnName)
         {
-            
             if (columnName == "TxtMinPlayers" && !int.TryParse(TxtMinPlayers, out int txtMinPlayer))
             {
                 return $"Minimum aantal spelers moet een numerieke waarde zijn" + Environment.NewLine;
